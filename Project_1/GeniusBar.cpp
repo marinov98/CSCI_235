@@ -12,7 +12,7 @@
 GeniusBar::GeniusBar()
 {
 	number_of_customers_ = 0;
-	number_of_available_geniuses_ = 0;
+	number_of_available_geniuses_ = 3;
 	current_wait_time_ = 0;
 }
 
@@ -23,17 +23,18 @@ bool GeniusBar::addWaitingCustomer(Customer& new_customer)
 	{
 		// post:
 		genius_bar_[number_of_customers_] = new_customer;
-		number_of_customers_++;
 		current_wait_time_ += WAIT_TIME_INCREMENT;
+		new_customer.updateWaitTime(current_wait_time_);
 	}
 
 	// return statement
-	if (number_of_customers_ >= MAX_NUMBER_OF_CUSTOMERS)
+	if (number_of_customers_ < MAX_NUMBER_OF_CUSTOMERS)
 	{
-		return false;
+		number_of_customers_++;
+		return true;
 	}
 
-	return true;
+	return false;
 }
 
 bool GeniusBar::assignGeniusToCustomer()
@@ -44,11 +45,7 @@ bool GeniusBar::assignGeniusToCustomer()
 		// post:
 		number_of_customers_--;
 		number_of_available_geniuses_--;
-	}
-
-	// return statement
-	if (number_of_customers_ > 0 && number_of_available_geniuses_ > 0)
-	{
+		// return statements
 		return true;
 	}
 
@@ -58,12 +55,12 @@ bool GeniusBar::assignGeniusToCustomer()
 bool GeniusBar::releaseGenius()
 {
 	// pre:
-	if (number_of_available_geniuses_ < TOTAL_NUMBER_OF_GENIUSES)
-		number_of_available_geniuses_++; // post
-
 	// return statments
 	if (number_of_available_geniuses_ < TOTAL_NUMBER_OF_GENIUSES)
+	{
+		number_of_available_geniuses_++; // post
 		return true;
+	}
 
 	return false;
 }
