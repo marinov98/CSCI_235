@@ -5,7 +5,6 @@
 // Purpose: Implement the GeniusBar class
 
 #include "GeniusBar.hpp"
-#include "Customer.cpp"
 #include "Customer.hpp"
 #include <iostream>
 #include <string>

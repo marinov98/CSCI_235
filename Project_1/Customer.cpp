@@ -8,6 +8,13 @@
 #include <iostream>
 #include <string>
 
+Customer::Customer()
+{
+	name_ = "";
+	defective_device_ = "unknown";
+	wait_time_ = 0;
+}
+
 // Initialize the name, device, and time
 Customer::Customer(std::string name, std::string device, int wait_time)
 {
