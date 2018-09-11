@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 
+// initialize values
 GeniusBar::GeniusBar()
 {
 	number_of_customers_ = 0;
@@ -16,20 +17,16 @@ GeniusBar::GeniusBar()
 	current_wait_time_ = 0;
 }
 
+// Adds a waiting customer, as long as they do not go above the max
 bool GeniusBar::addWaitingCustomer(Customer& new_customer)
 {
-	// pre:
 	if (number_of_customers_ < MAX_NUMBER_OF_CUSTOMERS)
 	{
-		// post:
+		// adds customer to genius bar and increments wait time
 		genius_bar_[number_of_customers_] = new_customer;
 		current_wait_time_ += WAIT_TIME_INCREMENT;
 		new_customer.updateWaitTime(current_wait_time_);
-	}
-
-	// return statement
-	if (number_of_customers_ < MAX_NUMBER_OF_CUSTOMERS)
-	{
+		// return true if a customer can be assigned, false otherwise
 		number_of_customers_++;
 		return true;
 	}
@@ -37,34 +34,39 @@ bool GeniusBar::addWaitingCustomer(Customer& new_customer)
 	return false;
 }
 
+/*
+Assigns genius to a customer and decreases the amount of customers
+that require help as well as the number of available geniuses until
+there are none remaining
+*/
 bool GeniusBar::assignGeniusToCustomer()
 {
-	// pre:
 	if (number_of_customers_ > 0 && number_of_available_geniuses_ > 0)
 	{
-		// post:
 		number_of_customers_--;
 		number_of_available_geniuses_--;
-		// return statements
+		// return true if a genius can be released, false otherwise
 		return true;
 	}
 
 	return false;
 }
 
+// releases geniuses from their break
 bool GeniusBar::releaseGenius()
 {
 	// pre:
-	// return statments
 	if (number_of_available_geniuses_ < TOTAL_NUMBER_OF_GENIUSES)
 	{
-		number_of_available_geniuses_++; // post
+		number_of_available_geniuses_++;
+		// return true if a genius can be made avaliable, false otherwise
 		return true;
 	}
 
 	return false;
 }
 
+// Updates customer's wait time until there are no available customers left
 bool GeniusBar::updateCustomersWaitTime()
 {
 	// pre:

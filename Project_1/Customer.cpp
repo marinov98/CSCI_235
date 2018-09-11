@@ -41,6 +41,7 @@ int Customer::getWaitTime()
 	return wait_time_;
 }
 
+// updates wait time based on amount put into the argument
 void Customer::updateWaitTime(int new_wait_time)
 {
 	wait_time_ = new_wait_time;
