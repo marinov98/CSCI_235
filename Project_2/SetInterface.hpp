@@ -1,3 +1,8 @@
+// Assignment: CSCI 235, Fall 2018, Project 2
+// Name: Marin Pavlinov Marinov
+// Date: 09/011/18
+// File Name: SetInterface.hpp
+
 #ifndef SET_INTERFACE_H_
 
 #define SET_INTERFACE_H_
