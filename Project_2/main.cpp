@@ -1,3 +1,6 @@
+#include "PlayList.h"
+#include "Set.h"
+#include "Song.h"
 #include <iostream>
 
 int main()

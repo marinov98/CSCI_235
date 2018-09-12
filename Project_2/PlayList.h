@@ -1,8 +1,10 @@
 // Assignment: CSCI 235, Fall 2018, Project 2
 // Name: Marin Pavlinov Marinov
 // Date: 09/011/18
-// File Name: PlayList.hpp
-
+// File Name: PlayList.h
+#pragma once
+#include "Set.h"
+#include "Song.h"
 #include <iostream>
 #include <string>
 
@@ -12,6 +14,7 @@ class PlayList
 	PlayList();
 
 	PlayList(const Song& a_song);
+
 	int getNumberOfSongs() const;
 
 	bool isEmpty() const;
@@ -25,5 +28,5 @@ class PlayList
 	void displayPlayList() const;
 
   private:
-	// playlist_
+	Set<Song> playlist_;
 };

@@ -1,8 +1,8 @@
 // Assignment: CSCI 235, Fall 2018, Project 2
 // Name: Marin Pavlinov Marinov
 // Date: 09/011/18
-// File Name: Song.hpp
-
+// File Name: Song.h
+#pragma once
 #include <iostream>
 #include <string>
 
