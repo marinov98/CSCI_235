@@ -38,4 +38,5 @@ class Set : public SetInterface<ItemType>
 
 	int max_items_; // max capacity of the set
 };
+#include "Set.cpp"
 #endif

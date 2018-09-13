@@ -2,8 +2,6 @@
 // Name: Marin Pavlinov Marinov
 // Date: 09/011/18
 // File Name: Set.cpp
-
-#include "Set.h"
 #include <iostream>
 
 template <class ItemType>
