@@ -7,6 +7,26 @@
 #include <iostream>
 
 template <class ItemType>
+Set<ItemType>::Set()
+{
+	item_count_ = 0;
+	max_items_ = DEFAULT_SET_SIZE;
+}
+
+template <class ItemType>
+int Set<ItemType>::getIndexOf(const ItemType& target) const
+{
+	for (int i = 0; i < item_count_; i++)
+	{
+		if (items_[i] == target)
+		{
+			return i;
+		}
+	}
+	return 0;
+}
+
+template <class ItemType>
 int Set<ItemType>::getCurrentSize() const
 {
 	return item_count_;
@@ -24,7 +44,7 @@ bool Set<ItemType>::isEmpty() const
 template <class ItemType>
 bool Set<ItemType>::add(const ItemType& newEntry)
 {
-	if (items_.size() < max_items_)
+	if (item_count_ < max_items_)
 	{
 		std::cout << "newEntry has been stored in the set!" << '\n';
 		items_[item_count_] = newEntry;
@@ -38,28 +58,27 @@ bool Set<ItemType>::add(const ItemType& newEntry)
 template <class ItemType>
 bool Set<ItemType>::remove(const ItemType& anEntry)
 {
-	if (items_.size() > 0)
+	if (this->contains(anEntry))
 	{
-		std::cout << "anEntry has been removed from the set!" << '\n';
-		for (int i = 0; i < items_.size(); i++)
+		int index = this->getIndexOf(anEntry);
+
+		for (int i = index; i < item_count_ - 1; i++)
 		{
-			if (items_[i] == anEntry)
-			{
-				items_[i].remove();
-				item_count_--;
-				return true;
-			}
+			items_[i] = items_[i + 1];
 		}
+		item_count_--;
+		return true;
 	}
+
 	return false;
 }
 
 template <class ItemType>
 void Set<ItemType>::clear()
 {
-	for (int i = 0; i < items_.size(); i++)
+	for (int i = 0; i < item_count_; i++)
 	{
-		items_[i].remove();
+		this->remove(items_[i]);
 	}
 
 	item_count_ = 0;
@@ -68,7 +87,7 @@ void Set<ItemType>::clear()
 template <class ItemType>
 bool Set<ItemType>::contains(const ItemType& anEntry) const
 {
-	for (int i = 0; i < items_.size(); i++)
+	for (int i = 0; i < item_count_; i++)
 	{
 		if (items_[i] == anEntry)
 			return true;
@@ -82,7 +101,7 @@ std::vector<ItemType> Set<ItemType>::toVector() const
 {
 	std::vector<ItemType> items;
 
-	for (int i = 0; i < items_.size(); i++)
+	for (int i = 0; i < item_count_; i++)
 	{
 		items[i] = items_[i];
 	}

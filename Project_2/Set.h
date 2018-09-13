@@ -11,6 +11,8 @@ template <class ItemType>
 class Set : public SetInterface<ItemType>
 {
   public:
+	Set();
+
 	int getCurrentSize() const;
 
 	bool isEmpty() const;
@@ -30,9 +32,10 @@ class Set : public SetInterface<ItemType>
 
 	ItemType items_[DEFAULT_SET_SIZE]; // array of set items
 
+	int getIndexOf(const ItemType& target) const;
+
 	int item_count_; // current count of set items
 
 	int max_items_; // max capacity of the set
 };
-
 #endif

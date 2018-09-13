@@ -4,7 +4,6 @@
 // File Name: PlayList.cpp
 
 #include "PlayList.h"
-#include "Set.h"
 #include "Song.h"
 #include <iostream>
 #include <vector>
@@ -23,17 +22,17 @@ int PlayList::getNumberOfSongs() const
 
 bool PlayList::isEmpty() const
 {
-	playlist_.isEmpty();
+	return playlist_.isEmpty();
 }
 
 bool PlayList::addSong(const Song& new_song)
 {
-	playlist_.add(new_song);
+	return playlist_.add(new_song);
 }
 
 bool PlayList::removeSong(const Song& a_song)
 {
-	playlist_.remove(a_song);
+	return playlist_.remove(a_song);
 }
 
 void PlayList::clearPlayList()
