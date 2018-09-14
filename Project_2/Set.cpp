@@ -20,9 +20,7 @@ int Set<ItemType>::getIndexOf(const ItemType& target) const
 	{
 		// returns the index if its found
 		if (items_[i] == target)
-		{
 			return i;
-		}
 	}
 	// returns blank otherwise
 	return 0;
@@ -46,7 +44,7 @@ bool Set<ItemType>::isEmpty() const
 template <class ItemType>
 bool Set<ItemType>::add(const ItemType& newEntry)
 {
-	if (item_count_ < max_items_)
+	if (item_count_ < max_items_ && !(this->contains(newEntry)))
 	{
 		// adds new entry and increments size
 		items_[item_count_] = newEntry;
@@ -65,13 +63,8 @@ bool Set<ItemType>::remove(const ItemType& anEntry)
 	if (this->contains(anEntry))
 	{
 		int index = this->getIndexOf(anEntry);
-		// removes the index by replacing the entry with the index of
-		// the one after it
-		for (int i = index; i < item_count_ - 1; i++)
-		{
-			items_[i] = items_[i + 1];
-		}
 		item_count_--;
+		items_[index] = items_[item_count_];
 		return true;
 	}
 
@@ -82,12 +75,6 @@ bool Set<ItemType>::remove(const ItemType& anEntry)
 template <class ItemType>
 void Set<ItemType>::clear()
 {
-	// removes all items from the array
-	// for (int i = 0; i < item_count_; i++)
-	// {
-	// 	this->remove(items_[i]);
-	// }
-
 	item_count_ = 0;
 }
 
@@ -111,9 +98,7 @@ std::vector<ItemType> Set<ItemType>::toVector() const
 	std::vector<ItemType> items;
 
 	for (int i = 0; i < item_count_; i++)
-	{
 		items.push_back(items_[i]);
-	}
 
 	return items;
 }
