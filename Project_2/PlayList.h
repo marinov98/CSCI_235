@@ -11,20 +11,17 @@
 class PlayList
 {
   public:
+	// Constructors
 	PlayList();
-
 	PlayList(const Song& a_song);
-
+	// Functions
 	int getNumberOfSongs() const;
-
+	// Checkers
 	bool isEmpty() const;
-
 	bool addSong(const Song& new_song);
-
 	bool removeSong(const Song& a_song);
-
+	// voids
 	void clearPlayList();
-
 	void displayPlayList() const;
 
   private:
