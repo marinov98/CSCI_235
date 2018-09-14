@@ -49,7 +49,6 @@ bool Set<ItemType>::add(const ItemType& newEntry)
 	if (item_count_ < max_items_)
 	{
 		// adds new entry and increments size
-		std::cout << "newEntry has been stored in the set!" << '\n';
 		items_[item_count_] = newEntry;
 		item_count_++;
 		return true;

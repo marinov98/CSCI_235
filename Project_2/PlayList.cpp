@@ -54,7 +54,8 @@ void PlayList::displayPlayList() const
 	for (int i = 0; i < playlist_.getCurrentSize(); i++)
 	{
 		std::cout << "* Title: " << playlist[i].getTitle()
-		          << "* Author: " << playlist[i].getAuthor()
-		          << "* Album: " << playlist[i].getAlbum() << '\n';
+		          << " * Author: " << playlist[i].getAuthor()
+		          << " * Album: " << playlist[i].getAlbum() << " * " << '\n';
 	}
+	std::cout << "End of playlist" << '\n';
 }
