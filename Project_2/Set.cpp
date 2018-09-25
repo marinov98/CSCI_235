@@ -44,7 +44,7 @@ bool Set<ItemType>::isEmpty() const
 template <class ItemType>
 bool Set<ItemType>::add(const ItemType& newEntry)
 {
-	if (item_count_ < max_items_ && !(this->contains(newEntry)))
+	if (item_count_ < max_items_ && !(contains(newEntry)))
 	{
 		// adds new entry and increments size
 		items_[item_count_] = newEntry;
@@ -60,9 +60,9 @@ template <class ItemType>
 bool Set<ItemType>::remove(const ItemType& anEntry)
 {
 	// checks if the array contains the entry
-	if (this->contains(anEntry))
+	if (contains(anEntry))
 	{
-		int index = this->getIndexOf(anEntry);
+		int index = getIndexOf(anEntry);
 		item_count_--;
 		items_[index] = items_[item_count_];
 		return true;
