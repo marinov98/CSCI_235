@@ -6,8 +6,7 @@
 #include <iostream>
 #include <string>
 
-class Song
-{
+class Song {
   public:
 	// initializers
 	Song();

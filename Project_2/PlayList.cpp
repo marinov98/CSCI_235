@@ -11,48 +11,40 @@
 PlayList::PlayList() {}
 
 // Add a song in the constructor
-PlayList::PlayList(const Song& a_song)
-{
+PlayList::PlayList(const Song& a_song) {
 	addSong(a_song);
 }
 
 // Get the number of songs in the playlist
-int PlayList::getNumberOfSongs() const
-{
+int PlayList::getNumberOfSongs() const {
 	return playlist_.getCurrentSize();
 }
 
 // Checks if the playlist is empty
-bool PlayList::isEmpty() const
-{
+bool PlayList::isEmpty() const {
 	return playlist_.isEmpty();
 }
 
 // Adds a song to the playlist
-bool PlayList::addSong(const Song& new_song)
-{
+bool PlayList::addSong(const Song& new_song) {
 	return playlist_.add(new_song);
 }
 
 // Removes a song from the playlist
-bool PlayList::removeSong(const Song& a_song)
-{
+bool PlayList::removeSong(const Song& a_song) {
 	return playlist_.remove(a_song);
 }
 
 // Clears the playlist
-void PlayList::clearPlayList()
-{
+void PlayList::clearPlayList() {
 	playlist_.clear();
 }
 
 // Displays the playlist with the title and the author's name
-void PlayList::displayPlayList() const
-{
+void PlayList::displayPlayList() const {
 	std::vector<Song> playlist = playlist_.toVector();
 
-	for (int i = 0; i < playlist_.getCurrentSize(); i++)
-	{
+	for (int i = 0; i < playlist_.getCurrentSize(); i++) {
 		std::cout << "* Title: " << playlist[i].getTitle()
 		          << " * Author: " << playlist[i].getAuthor()
 		          << " * Album: " << playlist[i].getAlbum() << " * " << '\n';

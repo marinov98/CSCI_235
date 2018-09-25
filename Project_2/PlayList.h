@@ -8,8 +8,7 @@
 #include <iostream>
 #include <string>
 
-class PlayList
-{
+class PlayList {
   public:
 	// Constructors
 	PlayList();

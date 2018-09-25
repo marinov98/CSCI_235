@@ -8,8 +8,7 @@
 #include "SetInterface.h"
 template <class ItemType>
 
-class Set : public SetInterface<ItemType>
-{
+class Set : public SetInterface<ItemType> {
   public:
 	Set();
 	int getCurrentSize() const;

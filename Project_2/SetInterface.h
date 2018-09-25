@@ -10,8 +10,7 @@
 
 template <class ItemType>
 
-class SetInterface
-{
+class SetInterface {
   public:
 	/** Gets the current number of entries in this set.
 

@@ -2,8 +2,7 @@
 #include "Song.h"
 #include <iostream>
 
-int main()
-{
+int main() {
 	//**********Test Song************//
 
 	// instantiate 5 songs
