@@ -1,9 +1,7 @@
 #pragma once
 #include "Customer.hpp"
 
-class GeniusBar
-
-{
+class GeniusBar {
   public:
 	GeniusBar(); // default constructor
 

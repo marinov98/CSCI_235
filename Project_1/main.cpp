@@ -3,8 +3,7 @@
 #include <iostream>
 #include <string>
 
-int main()
-{
+int main() {
 	// initialize a GeniusBar
 
 	GeniusBar genius_bar;
