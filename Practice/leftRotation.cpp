@@ -32,7 +32,7 @@ void leftShift(std::vector<int> dataset, int d) {
 
 		// left shift
 		temp = dataset[0];
-		for (int i = 0; i < dataset.size(); i++) {
+		for (int i = 1; i < dataset.size(); i++) {
 			dataset[i - 1] = dataset[i];
 		}
 		dataset[dataset.size() - 1] = temp;
