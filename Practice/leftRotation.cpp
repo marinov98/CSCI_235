@@ -18,3 +18,44 @@ The second line contains
 */
 
 #include <iostream>
+#include <vector>
+
+void leftShift(std::vector<int> dataset, int d) {
+	int temp;
+	int temp2;
+
+	while (d > 0) {
+		// right shift
+		// temp = dataset.front();
+		// dataset.pop_back();
+		// dataset.push_back(temp);
+
+		// left shift
+		temp = dataset[0];
+		for (int i = 0; i < dataset.size(); i++) {
+			dataset[i - 1] = dataset[i];
+		}
+		dataset[dataset.size() - 1] = temp;
+		d--;
+	}
+
+	for (int i = 0; i < dataset.size(); i++) {
+		std::cout << " " << dataset[i];
+	}
+}
+
+// 1 2 3 4 5
+// 5 1 2 3 4 d = 1
+
+// 1 2 3 4 5
+// 3 4 5 1 2  d = 3
+int main() {
+	std::vector<int> nums;
+	nums.push_back(1);
+	nums.push_back(2);
+	nums.push_back(3);
+	nums.push_back(4);
+	nums.push_back(5);
+
+	leftShift(nums, 3);
+}
