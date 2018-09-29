@@ -57,5 +57,5 @@ int main() {
 	nums.push_back(4);
 	nums.push_back(5);
 
-	leftShift(nums, 3);
+	leftShift(nums, 1);
 }
