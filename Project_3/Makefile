@@ -1,6 +1,6 @@
 CXXFLAGS=-std=c++14
 main: main.o PlayList.o Song.o #Node.o
-	g++ -o main main.o PlayList.o Song.o #Node.o
+	g++ $(CXXFLAGS) -o main main.o PlayList.o Song.o #Node.o
 
 main.o: main.cpp PlayList.h Song.h
 	g++ $(CXXFLAGS) -c main.cpp
@@ -14,7 +14,7 @@ Song.o:Song.cpp Song.h
 #Node.o: Node.cpp Node.h
 	#g++ $(CXXFLAGS) -c Node.cpp
 
-debug: CXXFLAGS:=$(CXXFLAGS) -g
+debug: CXXFLAGS:=$(CXXFLAGS) -g -fsanitize=address,undefined
 
 debug: main
 
@@ -22,4 +22,4 @@ clean:
 	rm -f main.o PlayList.o Song.o Node.o main
 
 run:
-	./main
+	UBSAN_OPTIONS="print_stacktrace=1" ./main

@@ -84,12 +84,13 @@ void PlayList::unloop() {
 void PlayList::displayPlayList() {
 	Node<Song>* cur_ptr = head_ptr_;
 
-	for (int i = 0; i < item_count_; i++) {
+	while (cur_ptr) {
 		std::cout << "* Title: " << cur_ptr->getItem().getTitle()
 		          << " * Author: " << cur_ptr->getItem().getAuthor()
 		          << " * Album: " << cur_ptr->getItem().getAlbum() << " * " << '\n';
 		// get the next item to print to the user
 		cur_ptr->getNext();
 	}
+
 	std::cout << "End of playlist" << '\n';
 }
