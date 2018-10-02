@@ -57,7 +57,7 @@ PlayList::~PlayList() {
 Node<Song>* PlayList::getPointerToLastNode() const {
 	return tail_ptr_;
 }
-
+// FIX THIS
 bool PlayList::add(const Song& new_song) {
 	if (!(contains(new_song))) {
 		Node<Song>* next_node_ptr = new Node<Song>();
@@ -82,12 +82,14 @@ void PlayList::unloop() {
 }
 
 void PlayList::displayPlayList() {
+	Node<Song>* cur_ptr = head_ptr_;
+
 	for (int i = 0; i < item_count_; i++) {
-		std::cout << "* Title: " << head_ptr_->getItem().getTitle()
-		          << " * Author: " << head_ptr_->getItem().getAuthor()
-		          << " * Album: " << head_ptr_->getItem().getAlbum() << " * " << '\n';
+		std::cout << "* Title: " << cur_ptr->getItem().getTitle()
+		          << " * Author: " << cur_ptr->getItem().getAuthor()
+		          << " * Album: " << cur_ptr->getItem().getAlbum() << " * " << '\n';
 		// get the next item to print to the user
-		head_ptr_->getNext();
+		cur_ptr->getNext();
 	}
 	std::cout << "End of playlist" << '\n';
 }

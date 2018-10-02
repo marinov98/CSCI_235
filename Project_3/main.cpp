@@ -34,8 +34,9 @@ int main() {
 	             "\n";
 
 	PlayList playlist1(song1);
-
-	playlist1.add(song2);
+	std::cout << "playlist created";
+	std::cout << std::boolalpha;
+	std::cout << playlist1.add(song2);
 
 	playlist1.add(song3);
 
