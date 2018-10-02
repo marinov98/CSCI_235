@@ -13,40 +13,40 @@ PlayList::PlayList(const Song& a_song) {
 	add(a_song);
 }
 
-PlayList::PlayList(const PlayList& a_play_list) /*:LinkedSet<Song>(a_play_list)*/ {
-	item_count_ = a_play_list.item_count_;
-	Node<Song>* orig_chain_ptr = a_play_list.head_ptr_; // Points to nodes in original chain
+PlayList::PlayList(const PlayList& a_play_list) : LinkedSet<Song>(a_play_list) {
+	// item_count_ = a_play_list.item_count_;
+	// Node<Song>* orig_chain_ptr = a_play_list.head_ptr_; // Points to nodes in original chain
 
-	if (orig_chain_ptr == nullptr)
-		head_ptr_ = nullptr; // Original Set is empty
-	else {
-		// Copy first node
-		head_ptr_ = new Node<Song>();
-		head_ptr_->setItem(orig_chain_ptr->getItem());
+	// if (orig_chain_ptr == nullptr)
+	// 	head_ptr_ = nullptr; // Original Set is empty
+	// else {
+	// 	// Copy first node
+	// 	head_ptr_ = new Node<Song>();
+	// 	head_ptr_->setItem(orig_chain_ptr->getItem());
 
-		// Copy remaining nodes
-		Node<Song>* new_chain_ptr = head_ptr_;      // Points to last node in new chain
-		orig_chain_ptr = orig_chain_ptr->getNext(); // Advance original-chain pointer
+	// 	// Copy remaining nodes
+	// 	Node<Song>* new_chain_ptr = head_ptr_;      // Points to last node in new chain
+	// 	orig_chain_ptr = orig_chain_ptr->getNext(); // Advance original-chain pointer
 
-		while (orig_chain_ptr != nullptr) {
-			// Get next item from original chain
-			Song nextItem = orig_chain_ptr->getItem();
+	// 	while (orig_chain_ptr != nullptr) {
+	// 		// Get next item from original chain
+	// 		Song nextItem = orig_chain_ptr->getItem();
 
-			// Create a new node containing the next item
-			Node<Song>* new_node_ptr = new Node<Song>(nextItem);
+	// 		// Create a new node containing the next item
+	// 		Node<Song>* new_node_ptr = new Node<Song>(nextItem);
 
-			// Link new node to end of new chain
-			new_chain_ptr->setNext(new_node_ptr);
+	// 		// Link new node to end of new chain
+	// 		new_chain_ptr->setNext(new_node_ptr);
 
-			// Advance pointer to new last node
-			new_chain_ptr = new_chain_ptr->getNext();
+	// 		// Advance pointer to new last node
+	// 		new_chain_ptr = new_chain_ptr->getNext();
 
-			// Advance original-chain pointer
-			orig_chain_ptr = orig_chain_ptr->getNext();
-		} // end while
+	// 		// Advance original-chain pointer
+	// 		orig_chain_ptr = orig_chain_ptr->getNext();
+	// 	} // end while
 
-		new_chain_ptr->setNext(nullptr); // Flag end of chain
-	}                                    // end if
+	// 	new_chain_ptr->setNext(nullptr); // Flag end of chain
+	// }                                    // end if
 } // copy constructor
 
 PlayList::~PlayList() {
@@ -82,14 +82,16 @@ void PlayList::unloop() {
 }
 
 void PlayList::displayPlayList() {
-	Node<Song>* cur_ptr = head_ptr_;
+	// Node<Song>* cur_ptr = head_ptr_;
+	int counter = 0;
 
-	while (cur_ptr) {
-		std::cout << "* Title: " << cur_ptr->getItem().getTitle()
-		          << " * Author: " << cur_ptr->getItem().getAuthor()
-		          << " * Album: " << cur_ptr->getItem().getAlbum() << " * " << '\n';
+	while (tail_ptr_ && counter < item_count_) {
+		std::cout << "* Title: " << tail_ptr_->getItem().getTitle()
+		          << " * Author: " << tail_ptr_->getItem().getAuthor()
+		          << " * Album: " << tail_ptr_->getItem().getAlbum() << " * " << '\n';
 		// get the next item to print to the user
-		cur_ptr->getNext();
+		tail_ptr_->getNext();
+		counter++;
 	}
 
 	std::cout << "End of playlist" << '\n';
