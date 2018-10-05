@@ -15,17 +15,17 @@ PlayList::PlayList(const Song& a_song) {
 
 PlayList::PlayList(const PlayList& a_play_list) : LinkedSet<Song>(a_play_list) {
 	// item_count_ = a_play_list.item_count_;
-	// Node<Song>* orig_chain_ptr = a_play_list.head_ptr_; // Points to nodes in original chain
+	// Node<Song>* orig_chain_ptr = a_play_list.tail_ptr_; // Points to nodes in original chain
 
 	// if (orig_chain_ptr == nullptr)
-	// 	head_ptr_ = nullptr; // Original Set is empty
+	// 	tail_ptr_ = nullptr; // Original Set is empty
 	// else {
 	// 	// Copy first node
-	// 	head_ptr_ = new Node<Song>();
-	// 	head_ptr_->setItem(orig_chain_ptr->getItem());
+	// 	tail_ptr_ = new Node<Song>();
+	// 	tail_ptr_->setItem(orig_chain_ptr->getItem());
 
 	// 	// Copy remaining nodes
-	// 	Node<Song>* new_chain_ptr = head_ptr_;      // Points to last node in new chain
+	// 	Node<Song>* new_chain_ptr = tail_ptr_;      // Points to last node in new chain
 	// 	orig_chain_ptr = orig_chain_ptr->getNext(); // Advance original-chain pointer
 
 	// 	while (orig_chain_ptr != nullptr) {
@@ -62,9 +62,18 @@ bool PlayList::add(const Song& new_song) {
 	if (!(contains(new_song))) {
 		Node<Song>* next_node_ptr = new Node<Song>();
 		next_node_ptr->setItem(new_song);
-		next_node_ptr->setNext(tail_ptr_); // New node points to chain
 
-		tail_ptr_ = next_node_ptr; // New node is now first node
+		if (tail_ptr_ == nullptr) {
+			tail_ptr_ = next_node_ptr;
+			head_ptr_ = next_node_ptr;
+		}
+		else {
+			tail_ptr_->setNext(next_node_ptr);
+
+			tail_ptr_ = next_node_ptr;
+		}
+		// New node points to chain
+
 		item_count_++;
 
 		return true;
@@ -82,15 +91,16 @@ void PlayList::unloop() {
 }
 
 void PlayList::displayPlayList() {
-	// Node<Song>* cur_ptr = head_ptr_;
 	int counter = 0;
+	loop();
+	Node<Song>* cur_ptr = tail_ptr_; // tail_ptr_;
 
-	while (tail_ptr_ && counter < item_count_) {
-		std::cout << "* Title: " << tail_ptr_->getItem().getTitle()
-		          << " * Author: " << tail_ptr_->getItem().getAuthor()
-		          << " * Album: " << tail_ptr_->getItem().getAlbum() << " * " << '\n';
+	while (cur_ptr && counter < item_count_) {
+		std::cout << "* Title: " << cur_ptr->getItem().getTitle()
+		          << " * Author: " << cur_ptr->getItem().getAuthor()
+		          << " * Album: " << cur_ptr->getItem().getAlbum() << " * " << '\n';
 		// get the next item to print to the user
-		tail_ptr_->getNext();
+		cur_ptr = cur_ptr->getNext();
 		counter++;
 	}
 
