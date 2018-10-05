@@ -57,23 +57,56 @@ PlayList::~PlayList() {
 Node<Song>* PlayList::getPointerToLastNode() const {
 	return tail_ptr_;
 }
+
+Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr) const {
+	bool found = false;
+	Node<Song>* cur_ptr = new Node<Song>();
+	previous_ptr = head_ptr_;
+
+	while (!found && (head_ptr_ != nullptr)) {
+		if (target == previous_ptr->getNext()->getItem()) {
+			found = true;
+			cur_ptr->setNext(previous_ptr);
+			cur_ptr = cur_ptr->getNext();
+		}
+		else
+			previous_ptr = previous_ptr->getNext();
+	} // end while
+
+	return cur_ptr;
+}
+
+bool PlayList::remove(const Song& old_song) {
+	Node<Song>* prev_ptr = new Node<Song>();
+	Node<Song>* cur_ptr = getPointerTo(old_song, prev_ptr);
+
+	if (!isEmpty() && cur_ptr != nullptr) {
+		Node<Song>* node_to_delete_ptr = new Node<Song>();
+		node_to_delete_ptr->setNext(cur_ptr);
+		node_to_delete_ptr = node_to_delete_ptr->getNext();
+
+		// deleting
+		node_to_delete_ptr->setNext(nullptr);
+		delete node_to_delete_ptr;
+		node_to_delete_ptr = nullptr;
+
+		item_count_--;
+		return true;
+	}
+
+	return false;
+}
+
 // FIX THIS
 bool PlayList::add(const Song& new_song) {
 	if (!(contains(new_song))) {
 		Node<Song>* next_node_ptr = new Node<Song>();
 		next_node_ptr->setItem(new_song);
+		next_node_ptr->setNext(nullptr);
 
-		if (tail_ptr_ == nullptr) {
-			tail_ptr_ = next_node_ptr;
-			head_ptr_ = next_node_ptr;
-		}
-		else {
-			tail_ptr_->setNext(next_node_ptr);
-
-			tail_ptr_ = next_node_ptr;
-		}
 		// New node points to chain
-
+		tail_ptr_->setNext(next_node_ptr);
+		tail_ptr_ = tail_ptr_->getNext();
 		item_count_++;
 
 		return true;
@@ -91,17 +124,13 @@ void PlayList::unloop() {
 }
 
 void PlayList::displayPlayList() {
-	int counter = 0;
-	loop();
-	Node<Song>* cur_ptr = tail_ptr_; // tail_ptr_;
+	// loop();
+	std::vector<Song> song_vector = toVector();
 
-	while (cur_ptr && counter < item_count_) {
-		std::cout << "* Title: " << cur_ptr->getItem().getTitle()
-		          << " * Author: " << cur_ptr->getItem().getAuthor()
-		          << " * Album: " << cur_ptr->getItem().getAlbum() << " * " << '\n';
-		// get the next item to print to the user
-		cur_ptr = cur_ptr->getNext();
-		counter++;
+	for (int i = 0; i < getCurrentSize(); i++) {
+		std::cout << "* Title: " << song_vector[i].getTitle()
+		          << " * Author: " << song_vector[i].getAuthor()
+		          << " * Album: " << song_vector[i].getAlbum() << " * " << '\n';
 	}
 
 	std::cout << "End of playlist" << '\n';

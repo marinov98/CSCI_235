@@ -35,8 +35,6 @@ int main() {
 
 	PlayList playlist1(song1);
 
-	std::cout << playlist1.add(song2);
-
 	playlist1.add(song3);
 
 	playlist1.add(song1);

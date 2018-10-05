@@ -10,6 +10,8 @@
 class PlayList : public LinkedSet<Song> {
   private:
 	Node<Song>* tail_ptr_; // Pointer to last node
+	Node<Song>* getPointerToLastNode() const;
+	Node<Song>* getPointerTo(const Song& target, Node<Song>*& previous_ptr) const;
 
   public:
 	PlayList();                            // default constructor
@@ -17,8 +19,8 @@ class PlayList : public LinkedSet<Song> {
 	PlayList(const PlayList& a_play_list); // copy constructor
 	~PlayList();                           // Destructor
 
-	Node<Song>* getPointerToLastNode() const;
 	bool add(const Song& new_song) override;
+	bool remove(const Song& old_song) override;
 	void loop();
 	void unloop();
 	void displayPlayList();
