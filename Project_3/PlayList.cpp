@@ -105,6 +105,7 @@ bool PlayList::add(const Song& new_song) {
 		next_node_ptr->setNext(nullptr);
 
 		// New node points to chain
+		// SEG FAULTS BELOW
 		tail_ptr_->setNext(next_node_ptr);
 		tail_ptr_ = tail_ptr_->getNext();
 		item_count_++;
