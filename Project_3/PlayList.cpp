@@ -63,7 +63,7 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 	Node<Song>* cur_ptr = new Node<Song>();
 	previous_ptr = head_ptr_;
 
-	while (!found && (head_ptr_ != nullptr)) {
+	while (!found && (previous_ptr != nullptr)) {
 		if (target == previous_ptr->getNext()->getItem()) {
 			found = true;
 			cur_ptr->setNext(previous_ptr);
@@ -75,20 +75,39 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 
 	return cur_ptr;
 }
-
+// SOME KIND OF SEG FAULT HERE
+// POTENTIAL PROBLEM IN getPointTo function
 bool PlayList::remove(const Song& old_song) {
 	Node<Song>* prev_ptr = new Node<Song>();
-	Node<Song>* cur_ptr = getPointerTo(old_song, prev_ptr);
+	Node<Song>* target_ptr = getPointerTo(old_song, prev_ptr);
+	std::cout << "HERE" << target_ptr << std::endl;
 
-	if (!isEmpty() && cur_ptr != nullptr) {
-		Node<Song>* node_to_delete_ptr = new Node<Song>();
-		node_to_delete_ptr->setNext(cur_ptr);
-		node_to_delete_ptr = node_to_delete_ptr->getNext();
+	if (!isEmpty() && target_ptr != nullptr) {
+		if (target_ptr == tail_ptr_) {
+			prev_ptr->setNext(nullptr);
+			delete target_ptr;
+			target_ptr = nullptr;
+		}
+		else if (target_ptr == head_ptr_) {
+			Node<Song>* temp_ptr = head_ptr_;
+			head_ptr_ = head_ptr_->getNext();
+			delete temp_ptr;
+			temp_ptr = nullptr;
+		}
+		else {
+			prev_ptr = target_ptr->getNext();
+			delete target_ptr;
+			target_ptr = nullptr;
+		}
 
-		// deleting
-		node_to_delete_ptr->setNext(nullptr);
-		delete node_to_delete_ptr;
-		node_to_delete_ptr = nullptr;
+		// Node<Song>* node_to_delete_ptr = new Node<Song>();
+		// node_to_delete_ptr->setNext(cur_ptr);
+		// node_to_delete_ptr = node_to_delete_ptr->getNext();
+
+		// // deleting
+		// node_to_delete_ptr->setNext(nullptr);
+		// delete node_to_delete_ptr;
+		// node_to_delete_ptr = nullptr;
 
 		item_count_--;
 		return true;
@@ -99,6 +118,12 @@ bool PlayList::remove(const Song& old_song) {
 
 // FIX THIS
 bool PlayList::add(const Song& new_song) {
+	if (!tail_ptr_) {
+		Node<Song>* next_node_ptr = new Node<Song>();
+		tail_ptr_ = next_node_ptr;
+		head_ptr_ = next_node_ptr;
+		item_count_ = 1;
+	}
 	if (!(contains(new_song))) {
 		Node<Song>* next_node_ptr = new Node<Song>();
 		next_node_ptr->setItem(new_song);
@@ -108,6 +133,7 @@ bool PlayList::add(const Song& new_song) {
 		// SEG FAULTS BELOW
 		tail_ptr_->setNext(next_node_ptr);
 		tail_ptr_ = tail_ptr_->getNext();
+		// tail_ptr_ = next_node_ptr;
 		item_count_++;
 
 		return true;
