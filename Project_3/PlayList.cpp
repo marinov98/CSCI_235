@@ -10,7 +10,7 @@
 // initialization
 PlayList::PlayList() : tail_ptr_(nullptr) {}
 
-// parametarized constructor
+// parametrized constructor
 PlayList::PlayList(const Song& a_song) {
 	add(a_song);
 }
@@ -57,7 +57,6 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 bool PlayList::remove(const Song& old_song) {
 	Node<Song>* prev_ptr = new Node<Song>();
 	Node<Song>* target_ptr = getPointerTo(old_song, prev_ptr);
-	std::cout << "HERE" << target_ptr << std::endl;
 
 	if (!isEmpty() && target_ptr != nullptr) {
 		// check for target being at the end of the chain
