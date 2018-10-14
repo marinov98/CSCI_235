@@ -58,6 +58,7 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 
 bool PlayList::remove(const Song& old_song) {
 	auto prev_ptr = new Node<Song>();
+	// pointer to be deleted
 	auto target = getPointerTo(old_song,prev_ptr);
 	bool result = true;
 
@@ -69,14 +70,14 @@ bool PlayList::remove(const Song& old_song) {
 	    else if (target == tail_ptr_) {
 	        prev_ptr->setNext(nullptr);
 	        prev_ptr = prev_ptr->getNext();
-	    }// removing for the general case
+	    } // removing for the general case
 	    else {
 	        prev_ptr->setNext(target->getNext());
             prev_ptr = prev_ptr->getNext();
 	    }
 
 	    item_count_--;
-	}
+	} // Make false when node cannot be deleted
 	else {
 		result = false;
 	}
@@ -120,6 +121,7 @@ void PlayList::unloop() {
 // displays the title, author, and album
 void PlayList::displayPlayList() {
 	// loop();
+	// Create the vector
 	std::vector<Song> song_vector = toVector();
 
 	for (int i = 0; i < getCurrentSize(); i++) {
