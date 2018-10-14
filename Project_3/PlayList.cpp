@@ -92,7 +92,7 @@ bool PlayList::add(const Song& new_song) {
 			// tail and head are pointing to the same place because there is ONLY ONE song in the playlist
 			head_ptr_ = new_node;
 			tail_ptr_ = head_ptr_;
-		} // Add to non-empty list ONLY if no duplicate is found
+		} // Adding node to non-empty list
 		else  {
 			tail_ptr_->setNext(new_node);
 			tail_ptr_ = tail_ptr_->getNext();
