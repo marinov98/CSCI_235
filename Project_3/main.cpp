@@ -14,7 +14,6 @@ int main() {
 
 	std::cout << "\n\n**** Testing PlayList class **** \n";
 	std::cout << "\nAdd songs to PlayList, check adding to end of chain and no duplicates allowed: \n";
-
 	PlayList playlist1(song1);
 
 	playlist1.add(song2);
@@ -28,10 +27,8 @@ int main() {
 	playlist1.displayPlayList();
 
 	std::cout << "\n\nAdd remaining songs\n";
-
 	playlist1.add(song4);
 	playlist1.add(song5);
-
 	playlist1.displayPlayList();
 
 	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet(true)\n";
@@ -40,67 +37,41 @@ int main() {
 	std::cout << "\n\nTest removing songs from PlayList, check that order is preserved\n";
 
 	std::cout << "\nRemove from the middle\n";
-
 	playlist1.remove(song3);
-
 	playlist1.displayPlayList();
-
-
-
-
 
 	std::cout << "\nRemove first song\n";
-
 	playlist1.remove(song1);
 	playlist1.displayPlayList();
-
-
 
 	std::cout << "\nRemove last song\n";
 	playlist1.remove(song5);
 	playlist1.displayPlayList();
 
 	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet after removal (false)\n";
-
 	std::cout << playlist1.contains(song3);    //(false)
 
 	std::cout << "\n\nTest copy constructor\n";
-
 	PlayList playlist2 = playlist1;
 
 	std::cout << "\nPrinting playlist2 \n";
-
 	playlist2.displayPlayList();
 
-
 	std::cout << "\n\nCheck that copied chain corresponds in LinkedSet\n";
-
 	std::cout << playlist2.contains(song2) << std::endl;    // (true)
 	std::cout << playlist2.contains(song3) << std::endl;     //(false)
 
 	std::cout << "\nAdd song to copied playlist\n";
-
 	playlist2.add(song1);
-
 	playlist2.displayPlayList();
 
 	std::cout << "\nRemove last song from copied playlist\n";
-
 	playlist2.remove(song1);
-
 	playlist2.displayPlayList();
-
-
 
 	std::cout << "\nRemove first song from copied playlist\n";
-
 	playlist2.remove(song2);
-
 	playlist2.displayPlayList();
-
-
-
-
 
 	return 0;
 }
