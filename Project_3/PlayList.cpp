@@ -66,11 +66,7 @@ bool PlayList::remove(const Song& old_song) {
 	    // removing from the beginning
 	    if (target == head_ptr_) {
             head_ptr_ = head_ptr_->getNext();
-	    } // removing from the end
-	    else if (target == tail_ptr_) {
-	        prev_ptr->setNext(nullptr);
-	        prev_ptr = prev_ptr->getNext();
-	    } // removing for the general case
+	    } // removing from any other position
 	    else {
 	        prev_ptr->setNext(target->getNext());
             prev_ptr = prev_ptr->getNext();
