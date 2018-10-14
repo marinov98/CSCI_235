@@ -63,9 +63,20 @@ bool PlayList::remove(const Song& old_song) {
 	bool result = true;
 
 	if (!isEmpty() && target != nullptr) {
-		prev_ptr->setNext(target->getNext());
-		prev_ptr = prev_ptr->getNext();
-		item_count_--;
+	    // removing from the beginning
+	    if (target == head_ptr_) {
+            head_ptr_ = head_ptr_->getNext();
+	    } // removing from the end
+	    else if (target == tail_ptr_) {
+	        prev_ptr->setNext(nullptr);
+	        prev_ptr = prev_ptr->getNext();
+	    }// removing for the general case
+	    else {
+            prev_ptr->setNext(target->getNext());
+            prev_ptr = prev_ptr->getNext();
+	    }
+
+	    item_count_--;
 	}
 	else {
 		result = false;
@@ -86,7 +97,7 @@ bool PlayList::add(const Song& new_song) {
     	item_count_++;
     }  // Add to non-empty list ONLY if no duplicate is found
     else if (!contains(new_song)) {
-    	tail_ptr_ -> setNext(new_node);
+    	tail_ptr_->setNext(new_node);
     	tail_ptr_ = tail_ptr_-> getNext();
     	item_count_++;
     } // goes here when function is Unable to add a new node
