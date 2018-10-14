@@ -5,15 +5,13 @@
 int main() {
 	// Test PlayList
 
-	std::cout << "**** Testing Song class **** \n\n";
 
-	Song song1;
 
-	song1.setTitle("song1");
+	std::cout << "**** Instantiating Song objects **** \n";
 
-	song1.setAuthor("author1");
 
-	song1.setAlbum("album1");
+
+	Song song1("song1","author1","album1");
 
 	Song song2("song2", "author2", "album2");
 
@@ -23,17 +21,19 @@ int main() {
 
 	Song song5("song5", "author5", "album5");
 
-	std::cout << "The third song is: ";
 
-	std::cout << song3.getTitle() << ", " << song3.getAuthor() << ", "
-	          << song3.getAlbum(); //**2 POINTS FOR CORRECT OUTPUT HERE**
+
+
 
 	std::cout << "\n\n**** Testing PlayList class **** \n";
 
-	std::cout << "\nAdd songs to PlayList, check adding to end of chain and no duplicates allowed: "
-	             "\n";
+	std::cout << "\nAdd songs to PlayList, check adding to end of chain and no duplicates allowed: \n";
+
+
 
 	PlayList playlist1(song1);
+
+	playlist1.add(song2);
 
 	playlist1.add(song3);
 
@@ -43,9 +43,13 @@ int main() {
 
 	playlist1.add(song3);
 
+
 	std::vector<Song> song_vector = playlist1.toVector();
 
-	playlist1.displayPlayList(); //**10 POINTS FOR CORRECT OUTPUT HERE**
+
+	playlist1.displayPlayList();
+
+
 
 	std::cout << "\n\nAdd remaining songs\n";
 
@@ -53,53 +57,97 @@ int main() {
 
 	playlist1.add(song5);
 
-	playlist1.displayPlayList(); //**2 POINTS FOR CORRECT OUTPUT HERE**
+	playlist1.displayPlayList();
+
+
+
+	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet(true)\n";
+
+	std::cout << playlist1.contains(song3); // (true)
+
+
+
 
 	std::cout << "\n\nTest removing songs from PlayList, check that order is preserved\n";
+
+
 
 	std::cout << "\nRemove from the middle\n";
 
 	playlist1.remove(song3);
 
-	playlist1.displayPlayList(); //**10 POINTS FOR CORRECT OUTPUT HERE**
+	playlist1.displayPlayList();
+
+
+
+
 
 	std::cout << "\nRemove first song\n";
 
 	playlist1.remove(song1);
 
-	playlist1.displayPlayList(); //**10 POINTS FOR CORRECT OUTPUT HERE**
+	playlist1.displayPlayList();
+
+
 
 	std::cout << "\nRemove last song\n";
 
 	playlist1.remove(song5);
 
-	playlist1.displayPlayList(); //**10 POINTS FOR CORRECT OUTPUT HERE**
+	playlist1.displayPlayList();
+
+
+
+	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet after removal (false)\n";
+
+	std::cout << playlist1.contains(song3);    //(false)
+
+
 
 	std::cout << "\n\nTest copy constructor\n";
+
+
 
 	PlayList playlist2 = playlist1;
 
 	std::cout << "\nPrinting playlist2 \n";
 
-	playlist2.displayPlayList(); //**8 POINTS FOR CORRECT OUTPUT HERE**
+	playlist2.displayPlayList();
+
+
+
+	std::cout << "\n\nCheck that copied chain corresponds in LinkedSet\n";
+
+	std::cout << playlist2.contains(song2) << std::endl;    // (true)
+
+	std::cout << playlist2.contains(song3) << std::endl;     //(false)
+
 
 	std::cout << "\nAdd song to copied playlist\n";
 
 	playlist2.add(song1);
 
-	playlist2.displayPlayList(); //**5 POINTS FOR CORRECT OUTPUT HERE**
+	playlist2.displayPlayList();
+
+
 
 	std::cout << "\nRemove last song from copied playlist\n";
 
 	playlist2.remove(song1);
 
-	playlist2.displayPlayList(); //**5 POINTS FOR CORRECT OUTPUT HERE**
+	playlist2.displayPlayList();
+
+
 
 	std::cout << "\nRemove first song from copied playlist\n";
 
 	playlist2.remove(song2);
 
-	playlist2.displayPlayList(); //**5 POINTS FOR CORRECT OUTPUT HERE**
+	playlist2.displayPlayList();
+
+
+
+
 
 	return 0;
 }

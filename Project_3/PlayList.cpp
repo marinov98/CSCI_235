@@ -32,87 +32,69 @@ Node<Song>* PlayList::getPointerToLastNode() const {
 // get the specified pointer and preserve order
 Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr) const {
 	bool found = false;
-	Node<Song>* cur_ptr = new Node<Song>();
+	auto curr_ptr = new Node<Song>();
 	previous_ptr = head_ptr_;
 
 	while (!found && (previous_ptr != nullptr)) {
-		if (target == previous_ptr->getNext()->getItem()) {
-			// end while
+	    // check if the target is the head_ptr
+	    if (target == previous_ptr->getItem()) {
+	        found = true;
+	        curr_ptr = previous_ptr;
+	    }
+		else if (target == previous_ptr->getNext()->getItem()) {
+			// end while because target was found
 			found = true;
 			// make the current pointer the target
-			cur_ptr->setNext(previous_ptr);
-			cur_ptr = cur_ptr->getNext();
+			curr_ptr->setNext(previous_ptr->getNext());
+			curr_ptr = curr_ptr->getNext();
 		}
-		// keep searching until target is found
-		else {
+		else { // keep searching until target is found
 			previous_ptr = previous_ptr->getNext();
 		}
 
 	} // end while
 
-	return cur_ptr;
+	return curr_ptr;
 }
-// SOME KIND OF SEG FAULT HERE
-// POTENTIAL PROBLEM IN getPointTo function
+
 bool PlayList::remove(const Song& old_song) {
-	Node<Song>* prev_ptr = new Node<Song>();
-	Node<Song>* target_ptr = getPointerTo(old_song, prev_ptr);
+	auto prev_ptr = new Node<Song>();
+	auto target = getPointerTo(old_song,prev_ptr);
+	bool result = true;
 
-	if (!isEmpty() && target_ptr != nullptr) {
-		// check for target being at the end of the chain
-		if (target_ptr == tail_ptr_) {
-			prev_ptr->setNext(nullptr);
-			delete target_ptr;
-			target_ptr = nullptr;
-		}
-		// check for target being in the front of the chain
-		else if (target_ptr == head_ptr_) {
-			Node<Song>* temp_ptr = head_ptr_;
-			head_ptr_ = head_ptr_->getNext();
-			delete temp_ptr;
-			temp_ptr = nullptr;
-		}
-		// check for general case
-		else {
-			prev_ptr = target_ptr->getNext();
-			delete target_ptr;
-			target_ptr = nullptr;
-		}
-
+	if (!isEmpty() && target != nullptr) {
+		prev_ptr->setNext(target->getNext());
+		prev_ptr = prev_ptr->getNext();
 		item_count_--;
-		return true;
+	}
+	else {
+		result = false;
 	}
 
-	return false;
+	return result;
 }
 
-// Adds a song to the playlist
+// Adds a song to the playlist from the end
 bool PlayList::add(const Song& new_song) {
-	// CHECK: if list is empty
-	if (!tail_ptr_) {
-		Node<Song>* next_node_ptr = new Node<Song>();
-		tail_ptr_ = next_node_ptr;
-		head_ptr_ = next_node_ptr;
-		// there is now one item in the playlist
-		item_count_ = 1;
-	}
-	// CHECK: for duplicates
-	if (!(contains(new_song))) {
-		Node<Song>* next_node_ptr = new Node<Song>();
-		// point to the specified item
-		next_node_ptr->setItem(new_song);
-		// set to null to mark an end to the chain
-		next_node_ptr->setNext(nullptr);
+    auto new_node = new Node<Song> (new_song);
+    bool result = true;
+    // Adding new node to an EMPTY list
+    if (tail_ptr_ == nullptr) {
+    	// tail and head are pointing to the same place because there is ONLY ONE song int the playlist
+    	head_ptr_ = new_node;
+    	tail_ptr_ = head_ptr_;
+    	item_count_++;
+    }  // Add to non-empty list ONLY if no duplicate is found
+    else if (!contains(new_song)) {
+    	tail_ptr_ -> setNext(new_node);
+    	tail_ptr_ = tail_ptr_-> getNext();
+    	item_count_++;
+    } // goes here when function is Unable to add a new node
+    else {
+    	result = false;
+    }
 
-		// transfer memory address to the tail
-		tail_ptr_->setNext(next_node_ptr);
-		tail_ptr_ = tail_ptr_->getNext();
-		item_count_++;
-
-		return true;
-	}
-
-	return false;
+    return result;
 }
 
 // loop to start from the head
