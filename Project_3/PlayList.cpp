@@ -15,8 +15,7 @@ PlayList::PlayList(const Song& a_song) {
 	add(a_song);
 }
 
-PlayList::PlayList(const PlayList& a_play_list) :
-    LinkedSet<Song>(a_play_list) {} // copy constructor
+PlayList::PlayList(const PlayList& a_play_list) : LinkedSet<Song>(a_play_list) {} // copy constructor
 
 // destructor
 PlayList::~PlayList() {
@@ -72,7 +71,7 @@ bool PlayList::remove(const Song& old_song) {
 	        prev_ptr = prev_ptr->getNext();
 	    }// removing for the general case
 	    else {
-            prev_ptr->setNext(target->getNext());
+	        prev_ptr->setNext(target->getNext());
             prev_ptr = prev_ptr->getNext();
 	    }
 
@@ -98,7 +97,7 @@ bool PlayList::add(const Song& new_song) {
     }  // Add to non-empty list ONLY if no duplicate is found
     else if (!contains(new_song)) {
     	tail_ptr_->setNext(new_node);
-    	tail_ptr_ = tail_ptr_-> getNext();
+    	tail_ptr_ = tail_ptr_->getNext();
     	item_count_++;
     } // goes here when function is Unable to add a new node
     else {
