@@ -85,20 +85,22 @@ bool PlayList::remove(const Song& target_song) {
 bool PlayList::add(const Song& new_song) {
 	auto new_node = new Node<Song>(new_song);
 	bool result = true;
-	// Adding new node to an EMPTY list
-	if (tail_ptr_ == nullptr) {
-		// tail and head are pointing to the same place because there is ONLY ONE song in the
-		// playlist
-		head_ptr_ = new_node;
-		tail_ptr_ = head_ptr_;
+
+	if (!contains(new_song)) {
+		// Adding new node to an EMPTY list
+		if (tail_ptr_ == nullptr) {
+			// tail and head are pointing to the same place because there is ONLY ONE song in the playlist
+			head_ptr_ = new_node;
+			tail_ptr_ = head_ptr_;
+		} // Add to non-empty list ONLY if no duplicate is found
+		else  {
+			tail_ptr_->setNext(new_node);
+			tail_ptr_ = tail_ptr_->getNext();
+		}
+
 		item_count_++;
-	} // Add to non-empty list ONLY if no duplicate is found
-	else if (!contains(new_song)) {
-		tail_ptr_->setNext(new_node);
-		tail_ptr_ = tail_ptr_->getNext();
-		item_count_++;
-	} // goes here when function is Unable to add a new node
-	else {
+	}
+	else { // goes here when function is Unable to add a new node
 		result = false;
 	}
 
