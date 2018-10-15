@@ -16,7 +16,7 @@ PlayList::PlayList(const Song& a_song) {
 }
 
 PlayList::PlayList(const PlayList& a_play_list) : LinkedSet<Song>(a_play_list) {
-    tail_ptr_ = getPointerToLastNode();
+	tail_ptr_ = getPointerToLastNode();
 } // copy constructor
 
 // destructor
@@ -27,13 +27,13 @@ PlayList::~PlayList() {
 
 // get the last point in the chain (Function was not necessary)
 Node<Song>* PlayList::getPointerToLastNode() const {
-    // Create node and start from the beginning
+	// Create node and start from the beginning
 	auto last_node = head_ptr_;
 	// transverse chain till the end
-	while(last_node->getNext() != nullptr)
-	    last_node = last_node->getNext();
+	while (last_node->getNext() != nullptr)
+		last_node = last_node->getNext();
 
-    return last_node;
+	return last_node;
 }
 
 // get the specified pointer and preserve order
@@ -46,8 +46,9 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 		// Checking when previous pointer is equal to the head pointer
 		if (target == previous_ptr->getItem()) {
 			found = true;
-			target_ptr = previous_ptr; // previous pointer is already the target here no need for getNext
-		} // General case
+			target_ptr =
+			    previous_ptr; // previous pointer is already the target here no need for getNext
+		}                     // General case
 		else if (target == previous_ptr->getNext()->getItem()) {
 			found = true;
 			// make the current pointer the target
@@ -90,18 +91,19 @@ bool PlayList::remove(const Song& target_song) {
 
 // Adds a song to the playlist from the end
 bool PlayList::add(const Song& new_song) {
-    // Create a new node
+	// Create a new node
 	auto new_node = new Node<Song>(new_song);
 	bool result = true;
 
 	if (!contains(new_song)) {
 		// Adding new node to an EMPTY list
 		if (tail_ptr_ == nullptr) {
-			// tail and head are pointing to the same place because there is ONLY ONE song in the playlist
+			// tail and head are pointing to the same place because there is ONLY ONE song in the
+			// playlist
 			head_ptr_ = new_node;
 			tail_ptr_ = head_ptr_;
 		} // Adding node to non-empty list
-		else  {
+		else {
 			tail_ptr_->setNext(new_node);
 			tail_ptr_ = tail_ptr_->getNext();
 		}
