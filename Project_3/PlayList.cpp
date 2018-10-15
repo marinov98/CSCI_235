@@ -46,9 +46,8 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 		// Checking when previous pointer is equal to the head pointer
 		if (target == previous_ptr->getItem()) {
 			found = true;
-			target_ptr =
-			    previous_ptr; // previous pointer is already the target here no need for getNext
-		}                     // General case
+			target_ptr = previous_ptr; // previous pointer is already the target
+		}                              // General case
 		else if (target == previous_ptr->getNext()->getItem()) {
 			found = true;
 			// make the current pointer the target
