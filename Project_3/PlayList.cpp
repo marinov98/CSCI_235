@@ -39,29 +39,28 @@ Node<Song>* PlayList::getPointerToLastNode() const {
 // get the specified pointer and preserve order
 Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr) const {
 	bool found = false;
-	auto curr_ptr = new Node<Song>();
+	auto target_ptr = new Node<Song>();
 	previous_ptr = head_ptr_;
 
 	while (!found && (previous_ptr != nullptr)) {
-		// check if the target is the head_ptr
+		// Checking when previous pointer is equal to the head pointer
 		if (target == previous_ptr->getItem()) {
 			found = true;
-			curr_ptr = previous_ptr;
-		}
+			target_ptr = previous_ptr; // previous pointer is already the target here no need for getNext
+		} // General case
 		else if (target == previous_ptr->getNext()->getItem()) {
-			// end while because target was found
 			found = true;
 			// make the current pointer the target
-			curr_ptr->setNext(previous_ptr->getNext());
-			curr_ptr = curr_ptr->getNext();
-		}
-		else { // keep searching until target is found
+			target_ptr->setNext(previous_ptr->getNext());
+			target_ptr = target_ptr->getNext();
+		} // Keep searching until target is found
+		else {
 			previous_ptr = previous_ptr->getNext();
 		}
 
 	} // end while
 
-	return curr_ptr;
+	return target_ptr;
 }
 
 bool PlayList::remove(const Song& target_song) {
