@@ -46,7 +46,7 @@ PlayList::PlayList(const PlayList& a_play_list) : LinkedSet<Song>(a_play_list) {
         } // end while
 
         new_chain_ptr->setNext(nullptr); // Flag end of chain
-        tail_ptr_ = new_chain_ptr; // make sure the tail pointer points to the last node;
+        tail_ptr_ = getPointerToLastNode(); // make sure the tail pointer points to the last node;
     }
 } // copy constructor
 
@@ -56,9 +56,15 @@ PlayList::~PlayList() {
 	clear();
 }
 
-// get the last point in the chain
+// get the last point in the chain (Function was not necessary)
 Node<Song>* PlayList::getPointerToLastNode() const {
-	return tail_ptr_;
+    // Create node and start from the beginning
+	auto last_node = head_ptr_;
+	// transverse chain till the end
+	while(last_node->getNext() != nullptr)
+	    last_node = last_node->getNext();
+
+    return last_node;
 }
 
 // get the specified pointer and preserve order
@@ -116,6 +122,7 @@ bool PlayList::remove(const Song& target_song) {
 
 // Adds a song to the playlist from the end
 bool PlayList::add(const Song& new_song) {
+    // Create a new node
 	auto new_node = new Node<Song>(new_song);
 	bool result = true;
 
@@ -152,7 +159,6 @@ void PlayList::unloop() {
 
 // displays the title, author, and album
 void PlayList::displayPlayList() {
-	// loop();
 	// Create the vector
 	std::vector<Song> song_vector = toVector();
 
