@@ -28,7 +28,7 @@ PlayList::~PlayList() {
 // get the last point in the chain (Function was not necessary)
 Node<Song>* PlayList::getPointerToLastNode() const {
 	// Create node and start from the beginning
-	auto last_node = head_ptr_;
+	Node<Song>* last_node = head_ptr_;
 	// transverse chain till the end
 	while (last_node->getNext() != nullptr)
 		last_node = last_node->getNext();
@@ -66,7 +66,7 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 bool PlayList::remove(const Song& target_song) {
 	auto prev_node = new Node<Song>();
 	// pointer to be deleted
-	auto target_node = getPointerTo(target_song, prev_node);
+	Node<Song>* target_node = getPointerTo(target_song, prev_node);
 	bool result = true;
 
 	if (!isEmpty() && target_node != nullptr) {
