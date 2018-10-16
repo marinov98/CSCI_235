@@ -25,7 +25,7 @@ PlayList::~PlayList() {
 	clear();
 }
 
-// get the last point in the chain (Function was not necessary)
+// get the last point in the chain
 Node<Song>* PlayList::getPointerToLastNode() const {
 	// Create node and start from the beginning
 	Node<Song>* last_node = head_ptr_;
@@ -128,6 +128,8 @@ void PlayList::unloop() {
 
 // displays the title, author, and album
 void PlayList::displayPlayList() {
+    // plays songs in a loop
+    loop();
 	// Create the vector
 	std::vector<Song> song_vector = toVector();
 
@@ -138,4 +140,6 @@ void PlayList::displayPlayList() {
 	}
 
 	std::cout << "End of playlist" << '\n';
+	//stop the loop
+	unloop();
 }
