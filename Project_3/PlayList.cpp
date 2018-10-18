@@ -72,13 +72,14 @@ bool PlayList::remove(const Song& target_song) {
 	if (!isEmpty() && target_node != nullptr) {
 		// removing from the beginning
 		if (target_node == head_ptr_) {
+		    delete target_node;
 			head_ptr_ = head_ptr_->getNext();
 		} // removing from any other position
 		else {
 			prev_node->setNext(target_node->getNext());
 			prev_node = prev_node->getNext();
+			delete target_node;
 		}
-
 		item_count_--;
 	} // Make false when node cannot be deleted
 	else {
