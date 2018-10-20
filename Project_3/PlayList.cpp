@@ -10,14 +10,13 @@
 // initialization
 PlayList::PlayList() : tail_ptr_(nullptr) {}
 
+
 // parametrized constructor
 PlayList::PlayList(const Song& a_song) {
 	add(a_song);
 }
 
-PlayList::PlayList(const PlayList& a_play_list) : LinkedSet<Song>(a_play_list) {
-	tail_ptr_ = getPointerToLastNode();
-} // copy constructor
+PlayList::PlayList(const PlayList& a_play_list) : LinkedSet<Song>(a_play_list), tail_ptr_(getPointerToLastNode()) {} // copy constructor
 
 // destructor
 PlayList::~PlayList() {
@@ -105,7 +104,7 @@ bool PlayList::add(const Song& new_song) {
 		} // Adding node to non-empty list
 		else {
 			tail_ptr_->setNext(new_node);
-			tail_ptr_ = tail_ptr_->getNext();
+    			tail_ptr_ = tail_ptr_->getNext();
 		}
 
 		item_count_++;
