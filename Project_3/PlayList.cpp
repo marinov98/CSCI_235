@@ -1,3 +1,4 @@
+
 // Assignment: CSCI 235, Fall 2018, Project 3
 // Name: Marin Pavlinov Marinov
 // Date: 09/27/18
@@ -126,10 +127,28 @@ void PlayList::unloop() {
 	tail_ptr_->setNext(nullptr);
 }
 
+void PlayList::reverseLinkedList() {
+	Node<Song>* prev_node = nullptr;
+	Node<Song>* curr_node = head_ptr_;
+	auto next_node = new Node<Song>();
+
+	while(curr_node->getNext()) {
+		// store the next node
+		next_node = curr_node->getNext();
+		// point the current to the one before it.
+		curr_node->setNext(prev_node);
+		prev_node = curr_node;
+		curr_node = next_node;
+	}
+	// make the last point the beginning
+	head_ptr_ = prev_node;
+
+}
+
 // displays the title, author, and album
 void PlayList::displayPlayList() {
     // plays songs in a loop
-    loop();
+   loop();
 	// Create the vector
 	std::vector<Song> song_vector = toVector();
 
@@ -140,6 +159,6 @@ void PlayList::displayPlayList() {
 	}
 
 	std::cout << "End of playlist" << '\n';
-	//stop the loop
+//stop the loop
 	unloop();
 }
