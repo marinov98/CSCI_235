@@ -128,21 +128,20 @@ void PlayList::unloop() {
 }
 
 void PlayList::reverseLinkedList() {
-	Node<Song>* prev_node = nullptr;
-	Node<Song>* curr_node = head_ptr_;
-	auto next_node = new Node<Song>();
+	Node<Song>* prev = nullptr;
+	Node<Song>* cur = head_ptr_;
 
-	while(curr_node->getNext()) {
+	while(cur) {
 		// store the next node
-		next_node = curr_node->getNext();
+		auto* next = cur->getNext();
 		// point the current to the one before it.
-		curr_node->setNext(prev_node);
-		prev_node = curr_node;
-		curr_node = next_node;
+		cur->setNext(prev);
+		prev = cur;
+		cur = next;
 	}
 	// make the last point the beginning
-	head_ptr_ = prev_node;
-
+    tail_ptr_ = head_ptr_;
+	head_ptr_ = prev;
 }
 
 // displays the title, author, and album
