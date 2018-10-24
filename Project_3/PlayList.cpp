@@ -72,13 +72,15 @@ bool PlayList::remove(const Song& target_song) {
 	if (!isEmpty() && target_node != nullptr) {
 		// removing from the beginning
 		if (target_node == head_ptr_) {
-		    delete target_node;
 			head_ptr_ = head_ptr_->getNext();
+			delete target_node;
+			target_node = nullptr;
 		} // removing from any other position
 		else {
 			prev_node->setNext(target_node->getNext());
 			prev_node = prev_node->getNext();
 			delete target_node;
+			target_node = nullptr;
 		}
 		item_count_--;
 	} // Make false when node cannot be deleted
@@ -105,7 +107,7 @@ bool PlayList::add(const Song& new_song) {
 		} // Adding node to non-empty list
 		else {
 			tail_ptr_->setNext(new_node);
-    			tail_ptr_ = tail_ptr_->getNext();
+			tail_ptr_ = tail_ptr_->getNext();
 		}
 
 		item_count_++;

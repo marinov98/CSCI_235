@@ -34,6 +34,13 @@ int main() {
 	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet(true)\n";
 	std::cout << playlist1.contains(song3); // (true)
 
+	 std::cout << "\n\n" << "Testing reverse..." << std::endl;
+	 playlist1.reverseLinkedList();
+	 playlist1.displayPlayList();
+	 std::cout << "\n\n" << "reverting linked list to original state..." << std::endl;
+	 playlist1.reverseLinkedList();
+	 playlist1.displayPlayList();
+
 	std::cout << "\n\nTest removing songs from PlayList, check that order is preserved\n";
 
 	std::cout << "\nRemove from the middle\n";
