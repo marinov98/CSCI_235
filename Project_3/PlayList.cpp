@@ -30,7 +30,7 @@ Node<Song>* PlayList::getPointerToLastNode() const {
 	// Create node and start from the beginning
 	Node<Song>* last_node = head_ptr_;
 	// transverse chain till the end
-	while (last_node->getNext() != nullptr)
+	while (last_node->getNext())
 		last_node = last_node->getNext();
 
 	return last_node;
@@ -42,7 +42,7 @@ Node<Song>* PlayList::getPointerTo(const Song& target, Node<Song>*& previous_ptr
 	auto target_ptr = new Node<Song>();
 	previous_ptr = head_ptr_;
 
-	while (!found && (previous_ptr != nullptr)) {
+	while (!found && previous_ptr) {
 		// Checking when previous pointer is equal to the head pointer
 		if (target == previous_ptr->getItem()) {
 			found = true;
@@ -69,7 +69,7 @@ bool PlayList::remove(const Song& target_song) {
 	Node<Song>* target_node = getPointerTo(target_song, prev_node);
 	bool result = true;
 
-	if (!isEmpty() && target_node != nullptr) {
+	if (!isEmpty() && target_node) {
 		// removing from the beginning
 		if (target_node == head_ptr_) {
 			head_ptr_ = head_ptr_->getNext();
@@ -99,7 +99,7 @@ bool PlayList::add(const Song& new_song) {
 
 	if (!contains(new_song)) {
 		// Adding new node to an EMPTY list
-		if (tail_ptr_ == nullptr) {
+		if (!tail_ptr_) {
 			// tail and head are pointing to the same place because there is ONLY ONE song in the
 			// playlist
 			head_ptr_ = new_node;
