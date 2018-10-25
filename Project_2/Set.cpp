@@ -85,7 +85,6 @@ std::vector<ItemType> Set<ItemType>::toVector() const {
 	std::vector<ItemType> items;
 	items.reserve(item_count_);
 
-
 	for (int i = 0; i < item_count_; i++)
 		items.emplace_back(items_[i]);
 
