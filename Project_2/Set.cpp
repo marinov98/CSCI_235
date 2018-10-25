@@ -83,9 +83,11 @@ bool Set<ItemType>::contains(const ItemType& anEntry) const {
 template <class ItemType>
 std::vector<ItemType> Set<ItemType>::toVector() const {
 	std::vector<ItemType> items;
+	items.reserve(item_count_);
+
 
 	for (int i = 0; i < item_count_; i++)
-		items.push_back(items_[i]);
+		items.emplace_back(items_[i]);
 
 	return items;
 }
