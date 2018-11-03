@@ -20,8 +20,9 @@ class PlayList : public LinkedSet<Song> {
 	~PlayList();                           // Destructor
 
 	bool add(const Song& new_song) override;
-	bool remove(const Song& old_song) override;
+	bool remove(const Song& target_song) override;
 	void loop();
 	void unloop();
+	void reverseLinkedList();
 	void displayPlayList();
 };
