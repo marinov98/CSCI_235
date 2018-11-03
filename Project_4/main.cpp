@@ -1,15 +1,13 @@
-#include <iostream>
 #include "MazeSolver.h"
+#include <iostream>
 
-int main(int argc, char *argv[])
-{
-  MazeSolver solver("input.txt");
-  
-  if(solver.mazeIsReady()) {    
-    solver.solveMaze();
+int main(int argc, char* argv[]) {
+	MazeSolver solver("inputA.txt");
 
-    solver.printSolution();
- }
-  return 0;
+	/*  if(solver.mazeIsReady()) {
+	  solver.solveMaze();
+
+	  solver.printSolution();
+	  } */
+	return 0;
 }
-
