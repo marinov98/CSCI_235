@@ -57,7 +57,14 @@ void MazeSolver::initializeMaze(int rows, int columns) {
 	maze_ready = true;
 }
 
-void MazeSolver::fillMaze(std::ifstream& input_stream) {}
+void MazeSolver::fillMaze(std::ifstream& input_stream) {
+	for (int x = 0; x < maze_rows_; x++) {
+		for (int y = 0; y < maze_columns_; y++) {
+			input_stream.ignore();
+			input_stream.get(maze_[x][y]);
+		}
+	}
+}
 
 void MazeSolver::initializeSolution() {}
 
