@@ -6,3 +6,5 @@ Practice Code and Projects from Computer Science 235: Software Analysis and Desi
 ## Project 2: Template Playlist
 
 ## Project 3: Linked Set Playlist 
+
+## Project 4: Maze Solver 
