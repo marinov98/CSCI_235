@@ -9,6 +9,7 @@
 MazeSolver::MazeSolver(std::string input_file) {
 	std::ifstream Mazefile;
 
+	// test to see if file can be opened
 	try {
 		Mazefile.open(input_file);
 	}
@@ -20,10 +21,16 @@ MazeSolver::MazeSolver(std::string input_file) {
 	Mazefile >> maze_rows_ >> maze_columns_;
 
 	if (maze_rows_ > 0 && maze_columns_ > 0) {
+	    
+	        // initialize the maze and the solution 
 		initializeMaze(maze_rows_, maze_columns_);
+		initializeSolution();
+
+		// fill the maze 
 		fillMaze(Mazefile);
 	}
 }
+
 MazeSolver::~MazeSolver() {
 	// delete maze
 	delete[] maze_;
@@ -32,6 +39,7 @@ MazeSolver::~MazeSolver() {
 	delete[] solution_;
 	solution_ = nullptr;
 }
+
 // public functions
 bool MazeSolver::mazeIsReady() {
 	return maze_ready;
@@ -58,17 +66,36 @@ void MazeSolver::initializeMaze(int rows, int columns) {
 }
 
 void MazeSolver::fillMaze(std::ifstream& input_stream) {
-	for (int x = 0; x < maze_rows_; x++) {
-		for (int y = 0; y < maze_columns_; y++) {
+	for (int row = 0;  row < maze_rows_;  row++) {
+		for (int column = 0; column < maze_columns_; column++) {
+		    // ignore the spaces and add only the symbols
 			input_stream.ignore();
-			input_stream.get(maze_[x][y]);
+			input_stream.get(maze_[ row][column]);
 		}
 	}
 }
 
-void MazeSolver::initializeSolution() {}
+void MazeSolver::initializeSolution() {
+    if (maze_ready) {
+	// intialize solution
+	solution_ = new char*[maze_rows_];
 
-void MazeSolver::copyMazetoSolution() {}
+	for (int row = 0; row < maze_rows_; ++row) {
+	    solution_[row] = new char[maze_columns_];
+	}
+	// copy the maze to the solution
+	copyMazetoSolution();
+    }
+}
+
+void MazeSolver::copyMazetoSolution() {
+    for (int row = 0; row < maze_rows_; ++row) {
+	for (int column = 0; column < maze_columns_; ++column) {
+	    solution_[row][column] = maze_[row][column];
+	}
+
+    }
+}
 
 bool MazeSolver::extendPath(Position current_position) {}
 
