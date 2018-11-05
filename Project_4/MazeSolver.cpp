@@ -77,6 +77,8 @@ bool MazeSolver::solveMaze() {
 			}
 		}
 	}
+
+	return false;
 }
 
 // prints the solution to the maze
