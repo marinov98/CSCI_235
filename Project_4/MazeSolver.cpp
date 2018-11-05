@@ -5,6 +5,7 @@
 // This file implements the MazeSolver class
 
 #include "MazeSolver.h"
+
 // constructor
 MazeSolver::MazeSolver(std::string input_file) {
 	std::ifstream Mazefile;
@@ -21,16 +22,16 @@ MazeSolver::MazeSolver(std::string input_file) {
 	Mazefile >> maze_rows_ >> maze_columns_;
 
 	if (maze_rows_ > 0 && maze_columns_ > 0) {
-	    
-	        // initialize the maze and the solution 
+		// initialize the maze and the solution
 		initializeMaze(maze_rows_, maze_columns_);
 		initializeSolution();
 
-		// fill the maze 
+		// fill the maze
 		fillMaze(Mazefile);
 	}
 }
 
+// destructor
 MazeSolver::~MazeSolver() {
 	// delete maze
 	delete[] maze_;
@@ -47,10 +48,11 @@ bool MazeSolver::mazeIsReady() {
 
 bool MazeSolver::solveMaze() {}
 
+// prints the solution to the maze
 void MazeSolver::printSolution() {
 	for (int row = 0; row < maze_rows_; ++row) {
 		for (int column = 0; column < maze_columns_; ++column) {
-			std::cout << solution_[row][column] << "\n";
+			std::cout << solution_[row][column] << " ";
 		}
 	}
 }
@@ -66,39 +68,71 @@ void MazeSolver::initializeMaze(int rows, int columns) {
 }
 
 void MazeSolver::fillMaze(std::ifstream& input_stream) {
-	for (int row = 0;  row < maze_rows_;  row++) {
+	for (int row = 0; row < maze_rows_; row++) {
 		for (int column = 0; column < maze_columns_; column++) {
-		    // ignore the spaces and add only the symbols
+			// ignore the spaces and add only the symbols
 			input_stream.ignore();
-			input_stream.get(maze_[ row][column]);
+			input_stream.get(maze_[row][column]);
 		}
 	}
 }
 
 void MazeSolver::initializeSolution() {
-    if (maze_ready) {
-	// intialize solution
-	solution_ = new char*[maze_rows_];
+	if (maze_ready) {
+		// intialize solution
+		solution_ = new char*[maze_rows_];
 
-	for (int row = 0; row < maze_rows_; ++row) {
-	    solution_[row] = new char[maze_columns_];
+		for (int row = 0; row < maze_rows_; ++row) {
+			solution_[row] = new char[maze_columns_];
+		}
+		// copy the maze to the solution
+		copyMazetoSolution();
 	}
-	// copy the maze to the solution
-	copyMazetoSolution();
-    }
 }
 
 void MazeSolver::copyMazetoSolution() {
-    for (int row = 0; row < maze_rows_; ++row) {
-	for (int column = 0; column < maze_columns_; ++column) {
-	    solution_[row][column] = maze_[row][column];
+	for (int row = 0; row < maze_rows_; ++row) {
+		for (int column = 0; column < maze_columns_; ++column) {
+			solution_[row][column] = maze_[row][column];
+		}
 	}
-
-    }
 }
 
-bool MazeSolver::extendPath(Position current_position) {}
+bool MazeSolver::extendPath(Position current_position) {
+	bool result = false;
+	// check if current position is a valid position
+	if ((current_position.row >= 0 && current_position.row < maze_rows_)
+	    && (current_position.column >= 0 && current_position.column < maze_columns_)) {
+	    
+	}
 
-Position MazeSolver::getNewPosition(Position old_position, direction dir) {}
+	return result;
+}
 
-bool MazeSolver::isExtensible(Position current_position, direction dir) {}
+Position MazeSolver::getNewPosition(Position old_position, direction dir) {
+	if (isExtensible(old_position, dir)) {
+		if (dir == SOUTH)
+			old_position.row += 1;
+		else
+			old_position.column += 1;
+	}
+
+	return old_position;
+}
+
+bool MazeSolver::isExtensible(Position current_position, direction dir) {
+	// variable to store whether the operation is successful or not
+	bool result = false;
+
+	// check for going down
+	if (dir == SOUTH) {
+		if (maze_[current_position.row + 1][current_position.column] != '*')
+			result = true;
+	} // check for going right
+	else {
+		if (maze_[current_position.row][current_position.column + 1] != '*')
+			result = true;
+	}
+
+	return result;
+}
