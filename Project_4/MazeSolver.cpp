@@ -33,12 +33,15 @@ MazeSolver::MazeSolver(std::string input_file) {
 
 // destructor
 MazeSolver::~MazeSolver() {
-	// delete maze
-	delete[] maze_;
-	maze_ = nullptr;
-	// delete solution
-	delete[] solution_;
-	solution_ = nullptr;
+	// check to see if file was opened
+	if (maze_ready) {
+		// delete maze
+		delete[] maze_;
+		maze_ = nullptr;
+		// delete solution
+		delete[] solution_;
+		solution_ = nullptr;
+	}
 }
 
 // public functions
@@ -46,7 +49,35 @@ bool MazeSolver::mazeIsReady() {
 	return maze_ready;
 }
 
-bool MazeSolver::solveMaze() {}
+bool MazeSolver::solveMaze() {
+	// keep track of your current position
+	Position current = backtrack_stack_.top();
+
+	while (!backtrack_stack_.empty()) {
+		if (solution_[current.row][current.column] == '$') {
+			std::cout << "Found exit!!!"
+			          << "\n";
+			return true;
+		}
+		else if (isExtensible(current, SOUTH) || isExtensible(current, EAST)) {
+			extendPath(current);
+			solution_[current.row][current.column] = '>';
+		}
+		else {
+			maze_[current.row][current.column] = 'X';
+			solution_[current.row][current.column] = '@';
+			backtrack_stack_.pop();
+			if (!backtrack_stack_.empty()) {
+				current = backtrack_stack_.top();
+			}
+			else {
+				std::cout << "This maze has no solution"
+				          << "\n";
+				return false;
+			}
+		}
+	}
+}
 
 // prints the solution to the maze
 void MazeSolver::printSolution() {
@@ -87,6 +118,23 @@ void MazeSolver::initializeSolution() {
 		}
 		// copy the maze to the solution
 		copyMazetoSolution();
+		// inialize stack with all viable paths
+		Position viable;
+		viable.row = 0;
+		viable.column = 0;
+		// push initial position to stack
+		backtrack_stack_.push(viable);
+		// mark Solution
+		solution_[0][0] = '>';
+		// more viable paths
+		if (isExtensible(viable, SOUTH)) {
+			backtrack_stack_.push(getNewPosition(viable, SOUTH));
+			solution_[viable.row + 1][viable.column] = '>';
+		}
+		if (isExtensible(viable, EAST)) {
+		    backtrack_stack_.push(getNewPosition(viable, EAST));
+			solution_[viable.row][viable.column + 1] = '>';
+		}
 	}
 }
 
@@ -100,10 +148,15 @@ void MazeSolver::copyMazetoSolution() {
 
 bool MazeSolver::extendPath(Position current_position) {
 	bool result = false;
-	// check if current position is a valid position
-	if ((current_position.row >= 0 && current_position.row < maze_rows_)
-	    && (current_position.column >= 0 && current_position.column < maze_columns_)) {
-	    
+	// check if its extensible going SOUTH first
+	if (isExtensible(current_position, SOUTH)) {
+		backtrack_stack_.push(getNewPosition(current_position, SOUTH));
+		result = true;
+	}
+	// check if its extensible going EAST
+	if (isExtensible(current_position, EAST)) {
+		backtrack_stack_.push(getNewPosition(current_position, EAST));
+		result = true;
 	}
 
 	return result;
