@@ -8,7 +8,7 @@
 
 // constructor
 MazeSolver::MazeSolver(std::string input_file) {
-	std::ifstream Mazefile;
+	std::ifstream Mazefile(input_file);
 
 	// test to see if file can be opened
 	try {
@@ -36,9 +36,16 @@ MazeSolver::~MazeSolver() {
 	// check to see if file was opened
 	if (maze_ready) {
 		// delete maze
+		for (int i = 0; i < maze_rows_; ++i)
+			delete[] maze_[i];
+
 		delete[] maze_;
 		maze_ = nullptr;
+
 		// delete solution
+		for (int j = 0; j < maze_rows_; ++j)
+			delete[] solution_[j];
+
 		delete[] solution_;
 		solution_ = nullptr;
 	}
