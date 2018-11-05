@@ -134,7 +134,7 @@ void MazeSolver::initializeSolution() {
 			solution_[viable.row + 1][viable.column] = '>';
 		}
 		if (isExtensible(viable, EAST)) {
-		    backtrack_stack_.push(getNewPosition(viable, EAST));
+			backtrack_stack_.push(getNewPosition(viable, EAST));
 			solution_[viable.row][viable.column + 1] = '>';
 		}
 	}
