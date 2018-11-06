@@ -2,12 +2,24 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-	MazeSolver solver("inputA.txt");
+	MazeSolver solverA("inputA.txt");
+	MazeSolver solverB("inputB.txt");
+	MazeSolver solverC("inputC.txt");
+	MazeSolver solverD("inputD.txt");
 
-	/*  if(solver.mazeIsReady()) {
-	  solver.solveMaze();
+	if (solverA.mazeIsReady()) {
+		// solve mazes
+		solverA.solveMaze();
+		solverB.solveMaze();
+		solverC.solveMaze();
+		solverD.solveMaze();
 
-	  solver.printSolution();
-	  } */
+		// print solutions
+		solverA.printSolution();
+		solverB.printSolution();
+		solverC.printSolution();
+		solverD.printSolution();
+	}
+
 	return 0;
 }
