@@ -22,7 +22,7 @@ MazeSolver::MazeSolver(std::string input_file) {
 
 	Mazefile >> maze_rows_ >> maze_columns_;
 
-	// initialize solution and maze 
+	// initialize solution and maze
 	if (maze_rows_ > 0 && maze_columns_ > 0) {
 		// initialize the maze and the solution
 		initializeMaze(maze_rows_, maze_columns_);
@@ -67,16 +67,11 @@ bool MazeSolver::solveMaze() {
 
 	while (!backtrack_stack_.empty()) {
 		// CHECK: if the solution is one character away
-		if ((current.row + 1 < maze_rows_ && solution_[current.row + 1][current.column] == '$')
-		    || (current.column + 1 < maze_columns_
-		        && solution_[current.row][current.column + 1] == '$')) {
-			solution_[current.row][current.column] = '>';
-			std::cout << "Found the exit!!!"
-			          << "\n";
+		if (solution_[current.row][current.column] == '$') {
+			std::cout << "Found the exit!!!" << "\n";
 			return true;
 		} // CHECK: if road can be extended
-		else if (isExtensible(current, SOUTH) || isExtensible(current, EAST)) {
-			extendPath(current);
+		else if (extendPath(current)) {
 			solution_[current.row][current.column] = '>';
 			current = backtrack_stack_.top();
 		}
@@ -200,12 +195,14 @@ bool MazeSolver::isExtensible(Position current_position, direction dir) {
 	// check for going down
 	if (dir == SOUTH) {
 		if (current_position.row + 1 < maze_rows_
-		    && maze_[current_position.row + 1][current_position.column] == '_')
+		    && (maze_[current_position.row + 1][current_position.column] == '_'
+		        || maze_[current_position.row + 1][current_position.column] == '$'))
 			result = true;
 	} // check for going right
 	else {
 		if (current_position.column + 1 < maze_columns_
-		    && maze_[current_position.row][current_position.column + 1] == '_')
+		    && (maze_[current_position.row][current_position.column + 1] == '_'
+		        || maze_[current_position.row][current_position.column + 1] == '$'))
 			result = true;
 	}
 
