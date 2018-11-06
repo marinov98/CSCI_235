@@ -39,16 +39,14 @@ MazeSolver::MazeSolver(std::string input_file) {
 MazeSolver::~MazeSolver() {
 	// check to see if file was opened
 	if (maze_ready) {
-		// delete maze
-		for (int i = 0; i < maze_rows_; ++i)
+		// delete maze and solution
+		for (int i = 0; i < maze_rows_; ++i) {
 			delete[] maze_[i];
+			delete[] solution_[i];
+		}
 
 		delete[] maze_;
 		maze_ = nullptr;
-
-		// delete solution
-		for (int j = 0; j < maze_rows_; ++j)
-			delete[] solution_[j];
 
 		delete[] solution_;
 		solution_ = nullptr;
@@ -66,9 +64,10 @@ bool MazeSolver::solveMaze() {
 	Position current = backtrack_stack_.top();
 
 	while (!backtrack_stack_.empty()) {
-		// CHECK: if the solution is one character away
+		// CHECK: if we are at the solution
 		if (solution_[current.row][current.column] == '$') {
-			std::cout << "Found the exit!!!" << "\n";
+			std::cout << "Found the exit!!!"
+			          << "\n";
 			return true;
 		} // CHECK: if road can be extended
 		else if (extendPath(current)) {
