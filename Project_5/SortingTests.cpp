@@ -203,7 +203,9 @@ double sortTest(void (*sortingFunction)(int a[], size_t size), int values[], siz
     start_time = high_resolution_clock::now();
     sortingFunction(values, size);
     end_time = high_resolution_clock::now();
-
+    
+    run_time = duration_cast<microseconds> (end_time - start_time);
+    run_time_sum += run_time.count();
 
     // TEST 4
     generateFewRandomArray(values, size);
