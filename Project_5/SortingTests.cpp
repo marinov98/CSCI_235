@@ -28,10 +28,10 @@ void selectionSort(int a[], size_t size) {
 }
 
 void insertionSort(int a[], size_t size) {
-	for (int part = 0; part < size; part++) {
-		for (int x = part; x > 0; x--) {
-			if (a[x] < a[x - 1]) {
-				std::swap(a[x], a[x - 1]);
+	for (int i = 0; i < size; i++) {
+		for (int j = i; j > 0; j--) {
+			if (a[j] < a[j - 1]) {
+				std::swap(a[j], a[j - 1]);
 			}
 			else {
 				break;
