@@ -111,16 +111,21 @@ void mergeSort(int a[], int from, int to) {
 // creates an array of random integers 
 void generateRandomArray(int values[], size_t size) {
     srand(static_cast<unsigned>(time(0)));
-    
-    for (int i = 0; i < size; ++i) 
+
+    values = new int[size];
+
+    for (int i = 0; i < size; ++i)
         values[i] = (rand() % size) + 1; // avoid mode 0
+
 }
 
 // creates an array of random integers in ascending order
 void generateAscendingArray(int values[], size_t size) {
     srand(static_cast<unsigned>(time(0)));
     int min = 1;
-    
+
+    values = new int[size];
+
     for (int i = 0; i < size; ++i) {
         values[i] = (rand() % 100 + min);
         min = values[i];
@@ -131,6 +136,8 @@ void generateAscendingArray(int values[], size_t size) {
 void generateDescendingArray(int values[], size_t size) {
     srand(static_cast<unsigned>(time(0)));
     int max = 100;
+
+    values = new int[size];
 
     for (int i = 0; i < size; ++i) {
         values[i] = (rand() % max) + 1; // avoid mode 0 
@@ -150,7 +157,9 @@ void generateLastTenRandomArray(int values[], size_t size) {
 
 
     int min = 1;
-    
+
+    values = new int[size];
+
     for (int i = 0; i < size; ++i) {
         if (i < last10_index) {
             values[i] = (rand() % 100) + min;
@@ -165,6 +174,8 @@ void generateLastTenRandomArray(int values[], size_t size) {
 
 void generateFewRandomArray(int values[], size_t size) {
     srand(static_cast<unsigned>(time(0)));
+
+    values = new int[size];
 
     for (int i = 0; i < size; ++i) 
         values[i] = (rand() % size) + 1; // avoid mod 0
