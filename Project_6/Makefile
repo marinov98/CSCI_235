@@ -1,16 +1,16 @@
 CXXFLAGS=-std=c++14
 
-    main: main.o SortingTests.o
-		g++ -o main $(CXXFLAGS) main.o SortingTests.o
+    main: main.o ladders.o
+		g++ -o main $(CXXFLAGS) main.o ladders.o
 
-    main.o: main.cpp SortingTests.hpp
+    main.o: main.cpp ladders.hpp
 		g++ $(CXXFLAGS) -c main.cpp
 
-    SortingTests.o: SortingTests.cpp SortingTests.hpp
-		g++ $(CXXFLAGS) -c SortingTests.cpp
+    ladders.o: ladders.cpp ladders.hpp
+		g++ $(CXXFLAGS) -c ladders.cpp
 
     clean: 
-		rm -f main.o SortingTests.o main
+		rm -f main.o ladders.o main
 
     debug: CXXFLAGS:=$(CXXFLAGS) -g -fsanitize=address,undefined
 
