@@ -101,21 +101,21 @@ void levelOrder(Tree *root)
 //Insertion
 Tree *insert(Tree *root, int data)
 {
-    auto *to_insert_node = new Tree(data);
 
     // null root is found and insertion can happen
     if (!root)
     {
-        root = to_insert_node;
+        auto *new_node = new Tree(data);
+        root = new_node;
         return root;
     }
 
     // search left if data is less than current data
-    if (root->data >= to_insert_node->data)
+    if (root->data >= data)
         root->left = insert(root->left, data);
 
     // search right if data is greater than current data
-    if (root->data < to_insert_node->data)
+    if (root->data < data)
         root->right = insert(root->right, data);
 
     return root;
