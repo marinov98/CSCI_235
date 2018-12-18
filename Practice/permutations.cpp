@@ -23,5 +23,5 @@ int main()
     std::cin >> s;
     std::cout << '\n';
     permutation(s, 0, s.length() - 1);
-    std::cout << endl;
+    std::cout << '\n';
 }
