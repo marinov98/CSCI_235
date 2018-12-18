@@ -23,5 +23,5 @@ int main()
     std::cin >> s;
     std::cout << endl << "The permutations of the given string : " << endl;
     permutation(s, 0, s.length() - 1);
-    sd::cout << endl;
+    std::cout << endl;
 }
