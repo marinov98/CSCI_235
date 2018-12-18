@@ -4,7 +4,7 @@ void permutation(std::string s,int begin,int end)
 {
     int j;
     if (begin == end)
-        cout << s << "\t";
+        std::cout << s << "\t";
     else
     {
         for (j = begin; j < s.length(); j++)
