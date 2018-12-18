@@ -10,7 +10,7 @@ void permutation(std::string s,int begin,int end)
         for (j = begin; j < s.length(); j++)
         {
             std::swap(s[begin],s[j]);
-            permutation(s, begin + 1, n);
+            permutation(s, begin + 1, end);
             std::swap(s[begin],s[j]);
         }  
     }
