@@ -11,4 +11,3 @@ Practice Code and Projects from Computer Science 235: Software Analysis and Desi
 
 ## Project 5: Sorting Test
 
-## Project 6: Word Ladders 
