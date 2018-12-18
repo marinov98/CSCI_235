@@ -18,10 +18,10 @@ void permutation(std::string s,int begin,int end)
  
 int main()
 {
-    string s;
-    cout << "Enter the string : ";
-    cin >> s;
-    cout << endl << "The permutations of the given string : " << endl;
+    std::string s;
+    std::cout << "Enter the string : ";
+    std::cin >> s;
+    std::cout << endl << "The permutations of the given string : " << endl;
     permutation(s, 0, s.length() - 1);
-    cout << endl;
+    sd::cout << endl;
 }
