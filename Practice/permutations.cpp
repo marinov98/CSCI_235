@@ -21,7 +21,7 @@ int main()
     std::string s;
     std::cout << "Enter the string : ";
     std::cin >> s;
-    std::cout << endl << "The permutations of the given string : " << endl;
+    std::cout << '\n';
     permutation(s, 0, s.length() - 1);
     std::cout << endl;
 }
