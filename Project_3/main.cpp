@@ -6,14 +6,15 @@ int main() {
 	// Test PlayList
 	std::cout << "**** Instantiating Song objects **** \n";
 
-	Song song1("song1","author1","album1");
+	Song song1("song1", "author1", "album1");
 	Song song2("song2", "author2", "album2");
 	Song song3("song3", "author3", "album3");
 	Song song4("song4", "author4", "album4");
 	Song song5("song5", "author5", "album5");
 
 	std::cout << "\n\n**** Testing PlayList class **** \n";
-	std::cout << "\nAdd songs to PlayList, check adding to end of chain and no duplicates allowed: \n";
+	std::cout << "\nAdd songs to PlayList, check adding to end of chain and no duplicates allowed: "
+	             "\n";
 	PlayList playlist1(song1);
 
 	playlist1.add(song2);
@@ -34,12 +35,14 @@ int main() {
 	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet(true)\n";
 	std::cout << playlist1.contains(song3); // (true)
 
-	 std::cout << "\n\n" << "Testing reverse..." << std::endl;
-	 playlist1.reverseLinkedList();
-	 playlist1.displayPlayList();
-	 std::cout << "\n\n" << "reverting linked list to original state..." << std::endl;
-	 playlist1.reverseLinkedList();
-	 playlist1.displayPlayList();
+	std::cout << "\n\n"
+	          << "Testing reverse..." << '\n';
+	playlist1.reverseLinkedList();
+	playlist1.displayPlayList();
+	std::cout << "\n\n"
+	          << "reverting linked list to original state..." << '\n';
+	playlist1.reverseLinkedList();
+	playlist1.displayPlayList();
 
 	std::cout << "\n\nTest removing songs from PlayList, check that order is preserved\n";
 
@@ -56,7 +59,7 @@ int main() {
 	playlist1.displayPlayList();
 
 	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet after removal (false)\n";
-	std::cout << playlist1.contains(song3);    //(false)
+	std::cout << playlist1.contains(song3); //(false)
 
 	std::cout << "\n\nTest copy constructor\n";
 	PlayList playlist2 = playlist1;
@@ -65,8 +68,8 @@ int main() {
 	playlist2.displayPlayList();
 
 	std::cout << "\n\nCheck that copied chain corresponds in LinkedSet\n";
-	std::cout << playlist2.contains(song2) << std::endl;    // (true)
-	std::cout << playlist2.contains(song3) << std::endl;     //(false)
+	std::cout << playlist2.contains(song2) << '\n'; // (true)
+	std::cout << playlist2.contains(song3) << '\n'; //(false)
 
 	std::cout << "\nAdd song to copied playlist\n";
 	playlist2.add(song1);
