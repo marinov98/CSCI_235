@@ -15,4 +15,4 @@ int main(int argc, char *argv[])
         }
         return 0;
 }
-
+// Output: 5 3 2 1
