@@ -5,6 +5,7 @@
 // This file implements the MazeSolver class
 
 #include "MazeSolver.h"
+#include <cstring>
 
 // constructor
 MazeSolver::MazeSolver(std::string input_file) {
@@ -20,12 +21,12 @@ MazeSolver::MazeSolver(std::string input_file) {
 
 	// get the rows and the columns of the maze
 
-	Mazefile >> maze_rows_ >> maze_columns_;
+	Mazefile >> this->maze_rows_ >> this->maze_columns_;
 
 	// initialize solution and maze
-	if (maze_rows_ > 0 && maze_columns_ > 0) {
+	if (this->maze_rows_ > 0 && this->maze_columns_ > 0) {
 		// initialize the maze and the solution
-		initializeMaze(maze_rows_, maze_columns_);
+		initializeMaze(this->maze_rows_, this->maze_columns_);
 		// fill the maze BEFORE COPYING to solution
 		fillMaze(Mazefile);
 
@@ -38,9 +39,9 @@ MazeSolver::MazeSolver(std::string input_file) {
 // destructor
 MazeSolver::~MazeSolver() {
 	// check to see if file was opened
-	if (maze_ready) {
+	if (this->maze_ready) {
 		// delete maze and solution
-		for (int i = 0; i < maze_rows_; ++i) {
+		for (int i = 0; i < this->maze_rows_; ++i) {
 			delete[] maze_[i];
 			delete[] solution_[i];
 		}
@@ -55,15 +56,15 @@ MazeSolver::~MazeSolver() {
 
 // public functions
 bool MazeSolver::mazeIsReady() {
-	return maze_ready;
+	return this->maze_ready;
 }
 
 // attempts to solve the maze after it has been initialized
 bool MazeSolver::solveMaze() {
 	// keep track of your current position
-	Position current = backtrack_stack_.top();
+	Position current = this->backtrack_stack_.top();
 
-	while (!backtrack_stack_.empty()) {
+	while (!this->backtrack_stack_.empty()) {
 		// CHECK: if we are at the solution
 		if (solution_[current.row][current.column] == '$') {
 			std::cout << "Found the exit!!!"
@@ -72,14 +73,14 @@ bool MazeSolver::solveMaze() {
 		} // CHECK: if road can be extended
 		else if (extendPath(current)) {
 			solution_[current.row][current.column] = '>';
-			current = backtrack_stack_.top();
+			current = this->backtrack_stack_.top();
 		}
 		else { // Backktracking
 			maze_[current.row][current.column] = 'X';
 			solution_[current.row][current.column] = '@';
 			backtrack_stack_.pop();
-			if (!backtrack_stack_.empty()) {
-				current = backtrack_stack_.top();
+			if (!this->backtrack_stack_.empty()) {
+				current = this->backtrack_stack_.top();
 			}
 			else {
 				std::cout << "This maze has no solution."
@@ -94,11 +95,11 @@ bool MazeSolver::solveMaze() {
 
 // prints the solution to the maze
 void MazeSolver::printSolution() {
-	std::cout << "The solution to this maze is:"
+	std::cout << "Maze finished diagram:"
 	          << "\n";
-	for (int row = 0; row < maze_rows_; ++row) {
-		for (int column = 0; column < maze_columns_; ++column) {
-			std::cout << solution_[row][column] << ' ';
+	for (int row = 0; row < this->maze_rows_; ++row) {
+		for (int column = 0; column < this->maze_columns_; ++column) {
+			std::cout << this->solution_[row][column] << ' ';
 		}
 		std::cout << '\n';
 	}
@@ -106,17 +107,24 @@ void MazeSolver::printSolution() {
 
 // private helper functions
 void MazeSolver::initializeMaze(int rows, int columns) {
-	maze_ = new char*[rows];
+	// initialize original maze
+	this->maze_ = new char*[rows];
 
 	for (int row = 0; row < rows; ++row)
-		maze_[row] = new char[columns];
+		this->maze_[row] = new char[columns];
 
-	maze_ready = true;
+	// initialize solution
+	this->solution_ = new char*[rows];
+
+	for (int row = 0; row < maze_rows_; row++)
+		this->solution_[row] = new char[columns];
+
+	this->maze_ready = true;
 }
 
 void MazeSolver::fillMaze(std::ifstream& input_stream) {
-	for (int row = 0; row < maze_rows_; row++) {
-		for (int column = 0; column < maze_columns_; column++) {
+	for (int row = 0; row < this->maze_rows_; row++) {
+		for (int column = 0; column < this->maze_columns_; column++) {
 			// ignore spaces
 			input_stream.ignore();
 			input_stream.get(maze_[row][column]);
@@ -125,37 +133,32 @@ void MazeSolver::fillMaze(std::ifstream& input_stream) {
 }
 
 void MazeSolver::initializeSolution() {
-	if (maze_ready) {
+	if (this->maze_ready) {
 		// copy the maze to the solution
 		copyMazetoSolution();
 		// inialize stack with all viable paths
 		Position viable{0, 0};
 		// push initial position to stack
-		backtrack_stack_.push(viable);
+		this->backtrack_stack_.push(viable);
 		// mark Solution
-		solution_[0][0] = '>';
+		this->solution_[0][0] = '>';
 		// push all viable paths to stack
 		if (isExtensible(viable, SOUTH)) {
 			Position new_pos = getNewPosition(viable, SOUTH);
-			backtrack_stack_.push(new_pos);
+			this->backtrack_stack_.push(new_pos);
 		}
 		if (isExtensible(viable, EAST)) {
 			Position new_pos = getNewPosition(viable, EAST);
-			backtrack_stack_.push(new_pos);
+			this->backtrack_stack_.push(new_pos);
 		}
 	}
 }
 
 void MazeSolver::copyMazetoSolution() {
-	solution_ = new char*[maze_rows_];
-
-	for (int row = 0; row < maze_rows_; row++) {
-		solution_[row] = new char[maze_columns_];
-	}
 	// made solution
-	for (int row = 0; row < maze_rows_; row++) {
-		for (int column = 0; column < maze_columns_; column++) {
-			solution_[row][column] = maze_[row][column];
+	for (int row = 0; row < this->maze_rows_; row++) {
+		for (int column = 0; column < this->maze_columns_; column++) {
+			std::memcpy(solution_[row], maze_[row], maze_columns_);
 		}
 	}
 }
@@ -164,12 +167,12 @@ bool MazeSolver::extendPath(Position current_position) {
 	bool result = false;
 	// check if its extensible going SOUTH first
 	if (isExtensible(current_position, SOUTH)) {
-		backtrack_stack_.push(getNewPosition(current_position, SOUTH));
+		this->backtrack_stack_.emplace(std::move(getNewPosition(current_position, SOUTH)));
 		result = true;
 	}
 	// check if its extensible going EAST
 	if (isExtensible(current_position, EAST)) {
-		backtrack_stack_.push(getNewPosition(current_position, EAST));
+		this->backtrack_stack_.emplace(std::move(getNewPosition(current_position, EAST)));
 		result = true;
 	}
 

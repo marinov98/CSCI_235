@@ -8,16 +8,20 @@ int main(int argc, char* argv[]) {
 	MazeSolver solverD("inputD.txt");
 
 	if (solverA.mazeIsReady()) {
-		// solve mazes
+		// solve mazes A
 		solverA.solveMaze();
-		solverB.solveMaze();
-		solverC.solveMaze();
-		solverD.solveMaze();
-
-		// print solutions
 		solverA.printSolution();
+
+		// solve mazes B
+		solverB.solveMaze();
 		solverB.printSolution();
+
+		// solve mazes C
+		solverC.solveMaze();
 		solverC.printSolution();
+
+		// solve mazes D
+		solverD.solveMaze();
 		solverD.printSolution();
 	}
 
