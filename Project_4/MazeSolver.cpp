@@ -67,8 +67,7 @@ bool MazeSolver::solveMaze() {
 	while (!this->backtrack_stack_.empty()) {
 		// CHECK: if we are at the solution
 		if (solution_[current.row][current.column] == '$') {
-			std::cout << "Found the exit!!!"
-			          << "\n";
+			std::cout << "Found the exit!!!" << "\n";
 			return true;
 		} // CHECK: if road can be extended
 		else if (extendPath(current)) {
@@ -83,8 +82,7 @@ bool MazeSolver::solveMaze() {
 				current = this->backtrack_stack_.top();
 			}
 			else {
-				std::cout << "This maze has no solution."
-				          << "\n";
+				std::cout << "This maze has no solution." << "\n";
 				return false;
 			}
 		}
@@ -95,8 +93,7 @@ bool MazeSolver::solveMaze() {
 
 // prints the solution to the maze
 void MazeSolver::printSolution() {
-	std::cout << "Maze finished diagram:"
-	          << "\n";
+	std::cout << "Maze finished diagram:" << "\n";
 	for (int row = 0; row < this->maze_rows_; ++row) {
 		for (int column = 0; column < this->maze_columns_; ++column) {
 			std::cout << this->solution_[row][column] << ' ';
