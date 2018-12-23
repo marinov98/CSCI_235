@@ -16,7 +16,7 @@ MazeSolver::MazeSolver(std::string input_file) {
 		Mazefile.open(input_file);
 	}
 	catch (int e) {
-		std::cout << "Cannot read from " << input_file << "\n";
+		std::cout << "Cannot read from " << input_file << '\n';
 	}
 
 	// get the rows and the columns of the maze
@@ -67,7 +67,7 @@ bool MazeSolver::solveMaze() {
 	while (!this->backtrack_stack_.empty()) {
 		// CHECK: if we are at the solution
 		if (solution_[current.row][current.column] == '$') {
-			std::cout << "Found the exit!!!" << "\n";
+			std::cout << "Found the exit!!!" << '\n';
 			return true;
 		} // CHECK: if road can be extended
 		else if (extendPath(current)) {
@@ -82,7 +82,7 @@ bool MazeSolver::solveMaze() {
 				current = this->backtrack_stack_.top();
 			}
 			else {
-				std::cout << "This maze has no solution." << "\n";
+				std::cout << "This maze has no solution." << '\n';
 				return false;
 			}
 		}
@@ -93,11 +93,13 @@ bool MazeSolver::solveMaze() {
 
 // prints the solution to the maze
 void MazeSolver::printSolution() {
-	std::cout << "Maze finished diagram:" << "\n";
+	std::cout << "Maze finished diagram:" << '\n';
+
 	for (int row = 0; row < this->maze_rows_; ++row) {
 		for (int column = 0; column < this->maze_columns_; ++column) {
 			std::cout << this->solution_[row][column] << ' ';
 		}
+
 		std::cout << '\n';
 	}
 }
@@ -133,12 +135,16 @@ void MazeSolver::initializeSolution() {
 	if (this->maze_ready) {
 		// copy the maze to the solution
 		copyMazetoSolution();
+
 		// inialize stack with all viable paths
 		Position viable{0, 0};
+
 		// push initial position to stack
 		this->backtrack_stack_.push(viable);
+
 		// mark Solution
 		this->solution_[0][0] = '>';
+
 		// push all viable paths to stack
 		if (isExtensible(viable, SOUTH)) {
 			Position new_pos = getNewPosition(viable, SOUTH);
@@ -152,7 +158,6 @@ void MazeSolver::initializeSolution() {
 }
 
 void MazeSolver::copyMazetoSolution() {
-	// made solution
 	for (int row = 0; row < this->maze_rows_; row++) {
 		for (int column = 0; column < this->maze_columns_; column++) {
 			std::memcpy(solution_[row], maze_[row], maze_columns_);
