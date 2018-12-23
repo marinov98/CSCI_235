@@ -141,9 +141,10 @@ void PlayList::reverseLinkedList() {
 		prev = cur;
 		cur = next;
 	}
-	// make the last point the beginning
+	
+    // make the last point the beginning
     tail_ptr_ = head_ptr_;
-	head_ptr_ = prev;
+    head_ptr_ = prev;
 }
 
 // displays the title, author, and album
