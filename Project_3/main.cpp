@@ -35,12 +35,11 @@ int main() {
 	std::cout << "\n\nCheck that linked chain corresponds in LinkedSet(true)\n";
 	std::cout << playlist1.contains(song3); // (true)
 
-	std::cout << "\n\n"
-	          << "Testing reverse..." << '\n';
+	std::cout << "\n\n" << "Reverse a Linked List" << '\n';
 	playlist1.reverseLinkedList();
 	playlist1.displayPlayList();
-	std::cout << "\n\n"
-	          << "reverting linked list to original state..." << '\n';
+
+	std::cout << "\n\n" << "Reverting linked list to original state..." << '\n';
 	playlist1.reverseLinkedList();
 	playlist1.displayPlayList();
 

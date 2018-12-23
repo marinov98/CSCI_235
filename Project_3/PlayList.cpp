@@ -70,15 +70,25 @@ bool PlayList::remove(const Song& target_song) {
 	bool result = true;
 
 	if (!isEmpty() && target_node) {
-		// removing from the beginning
+		// removing from head
 		if (target_node == head_ptr_) {
 			head_ptr_ = head_ptr_->getNext();
+
+			delete target_node;
+			target_node = nullptr;
+		} // removing from tail
+		else if (target_node == tail_ptr_) {
+			tail_ptr_ = prev_node;
+			prev_node->setNext(nullptr);
+			prev_node = prev_node->getNext();
+
 			delete target_node;
 			target_node = nullptr;
 		} // removing from any other position
 		else {
 			prev_node->setNext(target_node->getNext());
 			prev_node = prev_node->getNext();
+
 			delete target_node;
 			target_node = nullptr;
 		}
