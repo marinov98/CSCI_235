@@ -56,7 +56,8 @@ void inOrder(Tree *root)
         inOrder(root->right);
 }
 
-// Height of a tree
+//// Height of a tree (2 Ways)
+// assuming no nodes or one node means height of 0
 int height(Tree *root)
 {
     int edges = 0;
@@ -71,6 +72,15 @@ int height(Tree *root)
 
     return edges;
 }
+
+// general assuming no nodes is -1 and one node is height 0
+int height(Node* root) {
+        if (!root)
+            return -1;
+        else
+            return  1 + std::max(height(root->left), height(root->right));
+             
+    }
 
 // Level Order
 void levelOrder(Tree *root)
