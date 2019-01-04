@@ -60,13 +60,14 @@ void inOrder(Tree *root)
 //// Height of a tree
 
 //  assuming no nodes is -1 and one node is height 0
-int height(Node* root) {
+int height(Node* root)
+{
         if (!root)
             return -1;
         else
             return  1 + std::max(height(root->left), height(root->right));
              
-    }
+}
 
 // Level Order
 void levelOrder(Tree *root)
