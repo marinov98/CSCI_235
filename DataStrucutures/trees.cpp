@@ -1,5 +1,6 @@
 // Answers to tree implementations in hackerrank!
 #include <iostream>
+#include <algorithm>
 #include <queue>
 
 // you only have to complete the function given below.
@@ -56,24 +57,9 @@ void inOrder(Tree *root)
         inOrder(root->right);
 }
 
-//// Height of a tree (2 Ways)
-// assuming no nodes or one node means height of 0
-int height(Tree *root)
-{
-    int edges = 0;
+//// Height of a tree
 
-    if (!root)
-        return 0;
-
-    if (root->left)
-        edges = 1 + height(root->left);
-    if (root->right)
-        edges = 1 + height(root->right);
-
-    return edges;
-}
-
-// general assuming no nodes is -1 and one node is height 0
+//  assuming no nodes is -1 and one node is height 0
 int height(Node* root) {
         if (!root)
             return -1;
