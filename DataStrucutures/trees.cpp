@@ -94,6 +94,22 @@ void levelOrder(Tree *root)
         temp = order.front();
     }
 }
+//Find
+bool find(Tree *root, int data) {
+    if(!root) {
+      return false;
+    }
+    else if(root->data > data) {
+      find(root->left,data);
+    }
+    else if(root->dara < data) {
+      find(root->right,data);
+    }
+    
+    return true;
+   
+}
+
 
 //Insertion
 Tree *insert(Tree *root, int data)
