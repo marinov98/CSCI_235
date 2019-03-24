@@ -102,7 +102,7 @@ bool find(Tree *root, int data) {
     else if(root->data > data) {
       find(root->left,data);
     }
-    else if(root->dara < data) {
+    else if(root->data < data) {
       find(root->right,data);
     }
     
